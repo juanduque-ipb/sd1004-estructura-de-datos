@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estructura de Datos · SD1004 · I.U. Pascual Bravo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --verde:        #1A6B3C;
+      --verde-oscuro: #0E4525;
+      --verde-claro:  #E8F5EE;
+      --verde-med:    #2E8B57;
+      --dorado:       #E8A020;
+      --dorado-claro: #FFF8EC;
+      --dorado-dark:  #B07800;
+      --gris:         #F4F6F4;
+      --gris-med:     #E8EBE8;
+      --gris-texto:   #4A5568;
+      --texto:        #1A2723;
+      --blanco:       #FFFFFF;
+      --radius:       14px;
+      --shadow:       0 2px 16px rgba(0,0,0,.07);
+      --shadow-lg:    0 8px 32px rgba(0,0,0,.10);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--blanco);
+      color: var(--texto);
+      line-height: 1.65;
+    }
+
+    /* ── HEADER ─────────────────────────────── */
+    header {
+      background: var(--verde-oscuro);
+      padding: 18px 32px;
+    }
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .header-logos { display: flex; align-items: center; gap: 20px; }
+    .header-logos img { height: 46px; object-fit: contain; filter: brightness(1.05); }
+    .header-right { text-align: right; font-size: .82rem; color: rgba(255,255,255,.7); line-height: 1.5; }
+    .header-right strong { color: #fff; font-weight: 600; }
+    .pill {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: .72rem;
+      font-weight: 700;
+      background: var(--dorado);
+      color: var(--verde-oscuro);
+      margin-top: 4px;
+    }
+
+    /* ── HERO ───────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, var(--verde-oscuro) 0%, var(--verde) 60%, #2E8B57 100%);
+      padding: 72px 32px 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      background: rgba(232,160,32,.2);
+      border: 1px solid rgba(232,160,32,.4);
+      color: var(--dorado);
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 18px;
+      letter-spacing: -.02em;
+    }
+    .hero h1 span { color: var(--dorado); }
+    .hero-sub {
+      max-width: 560px;
+      margin: 0 auto 36px;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.8);
+      font-weight: 400;
+    }
+    .hero-chips {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .hero-chip {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      color: #fff;
+      font-size: .84rem;
+      font-weight: 500;
+      padding: 7px 16px;
+      border-radius: 8px;
+    }
+    .hero-chip b { color: var(--dorado); }
+
+    /* ── SECCIÓN BASE ───────────────────────── */
+    section { padding: 72px 32px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: .75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--verde);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      color: var(--texto);
+      line-height: 1.2;
+      margin-bottom: 14px;
+      letter-spacing: -.02em;
+    }
+    .section-title span { color: var(--verde); }
+    .section-desc {
+      font-size: 1rem;
+      color: var(--gris-texto);
+      max-width: 620px;
+      margin-bottom: 44px;
+    }
+
+    /* ── FRANJA de color ──────────────────── */
+    .bg-gris  { background: var(--gris); }
+    .bg-verde { background: var(--verde-oscuro); }
+    .bg-dorado-claro { background: var(--dorado-claro); }
+
+    /* ── CASOS DE USO ───────────────────────── */
+    .use-cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 18px;
+    }
+    .use-card {
+      background: var(--blanco);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--verde);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .use-card-icon { font-size: 2rem; }
+    .use-card-app {
+      font-size: .72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--verde);
+    }
+    .use-card-title { font-size: 1rem; font-weight: 700; }
+    .use-card-struct {
+      display: inline-block;
+      background: var(--verde-claro);
+      color: var(--verde-oscuro);
+      font-size: .74rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 6px;
+      width: fit-content;
+    }
+    .use-card-desc { font-size: .85rem; color: var(--gris-texto); }
+
+    /* ── FRASE MOTIVADORA ───────────────────── */
+    .quote-block {
+      background: var(--verde);
+      border-radius: var(--radius);
+      padding: 36px 40px;
+      text-align: center;
+      margin-bottom: 0;
+    }
+    .quote-block p {
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: rgba(255,255,255,.9);
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    .quote-block p strong { color: var(--dorado); font-weight: 700; }
+
+    /* ── UNIDADES ───────────────────────────── */
+    .units-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .unit-row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 0;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .unit-num-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 6px;
+      padding: 24px 10px;
+      color: #fff;
+      font-weight: 900;
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+    .unit-num-bar .u-label {
+      font-size: .6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      opacity: .8;
+    }
+    .u1 .unit-num-bar { background: var(--verde); }
+    .u2 .unit-num-bar { background: var(--verde-med); }
+    .u3 .unit-num-bar { background: var(--dorado-dark); }
+    .unit-body {
+      background: var(--blanco);
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .unit-sem {
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--gris-texto);
+    }
+    .unit-title { font-size: 1.1rem; font-weight: 800; }
+    .unit-pitch { font-size: .9rem; color: var(--gris-texto); line-height: 1.55; }
+    .unit-topics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 4px;
+    }
+    .topic-tag {
+      background: var(--gris);
+      color: var(--texto);
+      font-size: .78rem;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    /* ── INFO CARDS ─────────────────────────── */
+    .info-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 14px;
+      margin-bottom: 40px;
+    }
+    .info-ic {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: var(--radius);
+      padding: 20px 16px;
+      text-align: center;
+    }
+    .info-ic .val {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--dorado);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .info-ic .lbl {
+      font-size: .74rem;
+      color: rgba(255,255,255,.6);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    /* ── CORTES ─────────────────────────────── */
+    .cortes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .corte-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .corte-header {
+      padding: 20px 22px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .c1 .corte-header { background: var(--verde); }
+    .c2 .corte-header { background: var(--verde-med); }
+    .c3 .corte-header { background: var(--dorado-dark); }
+    .corte-pct {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+    }
+    .corte-meta strong { color: #fff; font-size: .95rem; display: block; }
+    .corte-meta span { color: rgba(255,255,255,.72); font-size: .8rem; }
+    .corte-body { background: var(--blanco); padding: 18px 22px; }
+    .corte-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--gris-med);
+      font-size: .88rem;
+      gap: 12px;
+    }
+    .corte-item:last-of-type { border-bottom: none; }
+    .corte-item .pct {
+      font-weight: 800;
+      color: var(--verde);
+      white-space: nowrap;
+      font-size: .9rem;
+    }
+    .c3 .corte-item .pct { color: var(--dorado-dark); }
+    .sicau-bar {
+      margin-top: 12px;
+      background: #FFF3E0;
+      border: 1px solid #FFB300;
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: .76rem;
+      font-weight: 700;
+      color: #B07800;
+    }
+
+    /* ── CALENDARIO ─────────────────────────── */
+    .cal-wrap { overflow-x: auto; border-radius: var(--radius); box-shadow: var(--shadow); }
+    table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+    thead th {
+      background: var(--verde-oscuro);
+      color: rgba(255,255,255,.8);
+      font-size: .74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      padding: 13px 16px;
+      text-align: left;
+      white-space: nowrap;
+    }
+    tbody tr { border-bottom: 1px solid var(--gris-med); background: var(--blanco); }
+    tbody tr:hover { background: var(--gris); }
+    tbody tr:last-child { border-bottom: none; }
+    td { padding: 13px 16px; vertical-align: top; }
+    .sem-n {
+      font-weight: 900;
+      font-size: 1rem;
+      color: var(--verde);
+      white-space: nowrap;
+    }
+    .dates-col { font-size: .8rem; color: var(--gris-texto); line-height: 1.9; white-space: nowrap; }
+    .dates-col .d { font-weight: 700; color: var(--texto); font-size: .75rem; }
+    .cal-unit {
+      font-size: .68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      margin-bottom: 3px;
+    }
+    .cu1 { color: var(--verde); }
+    .cu2 { color: var(--verde-med); }
+    .cu3 { color: var(--dorado-dark); }
+    .cal-main { font-weight: 700; font-size: .9rem; margin-bottom: 2px; }
+    .cal-sub { font-size: .82rem; color: var(--gris-texto); }
+    .act-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 5px;
+      font-size: .72rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+    .at-lab  { background: var(--verde-claro); color: var(--verde-oscuro); }
+    .at-ent  { background: #EDE7F6; color: #4527A0; }
+    .at-quiz { background: #FFF3E0; color: #B07800; }
+    .at-auto { background: var(--gris-med); color: var(--gris-texto); }
+    .at-demo { background: #E8F5E9; color: #1B5E20; }
+    .at-sicau {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 5px;
+      font-size: .7rem;
+      font-weight: 700;
+      background: #FFF3E0;
+      color: #B07800;
+      border: 1px solid #FFB300;
+      margin-top: 4px;
+    }
+    .travel-row td { background: #fafafa; color: var(--gris-texto); font-style: italic; }
+    .travel-row .sem-n { color: var(--gris-texto); }
+
+    /* ── PROYECTO ───────────────────────────── */
+    .proj-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 18px;
+    }
+    .proj-card {
+      background: var(--blanco);
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--verde);
+    }
+    .proj-card .icon { font-size: 1.8rem; margin-bottom: 10px; }
+    .proj-card h4 { font-weight: 800; margin-bottom: 7px; }
+    .proj-card p { font-size: .85rem; color: var(--gris-texto); line-height: 1.55; }
+    .proj-wide {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, var(--verde-claro), #fff);
+      border-left-color: var(--dorado-dark);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+    .proj-wide .icon { font-size: 2.4rem; margin-bottom: 0; }
+
+    /* ── IA POLICY ──────────────────────────── */
+    .ia-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 18px;
+    }
+    .ia-card {
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      box-shadow: var(--shadow);
+    }
+    .ia-card.ia-ok    { background: var(--verde-claro); border-top: 4px solid var(--verde); }
+    .ia-card.ia-no    { background: #FDECEA; border-top: 4px solid #E53935; }
+    .ia-card.ia-ver   { background: #E8EAF6; border-top: 4px solid #3949AB; }
+    .ia-card.ia-tip   { background: var(--dorado-claro); border-top: 4px solid var(--dorado); }
+    .ia-card h4 {
+      font-size: .88rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 12px;
+    }
+    .ia-card.ia-ok h4  { color: var(--verde-oscuro); }
+    .ia-card.ia-no h4  { color: #B71C1C; }
+    .ia-card.ia-ver h4 { color: #283593; }
+    .ia-card.ia-tip h4 { color: var(--dorado-dark); }
+    .ia-card ul { list-style: none; }
+    .ia-card ul li {
+      font-size: .85rem;
+      color: var(--texto);
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(0,0,0,.07);
+      display: flex;
+      gap: 8px;
+    }
+    .ia-card ul li:last-child { border-bottom: none; }
+    .ia-card ul li::before { content: '›'; font-weight: 900; flex-shrink: 0; }
+
+    /* ── FOOTER ─────────────────────────────── */
+    footer {
+      background: var(--verde-oscuro);
+      padding: 36px 32px;
+      text-align: center;
+    }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .footer-inner img { height: 44px; opacity: .85; }
+    .footer-inner p { font-size: .82rem; color: rgba(255,255,255,.55); }
+    .footer-inner p strong { color: rgba(255,255,255,.85); }
+
+    /* ── RESPONSIVE ─────────────────────────── */
+    @media (max-width: 640px) {
+      section { padding: 52px 20px; }
+      .hero { padding: 52px 20px 48px; }
+      header { padding: 14px 20px; }
+      .unit-row { grid-template-columns: 60px 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="header-logos">
+      <img src="https://pascualbravo.edu.co/wp-content/uploads/2026/03/Logo-I.U.Pascual-Bravo_500-X-500-px.png"
+           alt="Pascual Bravo" onerror="this.style.display='none'" />
+      <img src="https://pascualbravo.edu.co/wp-content/uploads/2023/06/cropped-Imagotipo-horizontal_acreditados.png"
+           alt="Acreditada MEN 2022" onerror="this.style.display='none'" />
+    </div>
+    <div class="header-right">
+      Facultad de Ingeniería · Dpto. Sistemas Digitales<br />
+      <strong>Ing. de Software / Tec. Desarrollo de Software — Nivel 3</strong><br />
+      <span class="pill">Semestre 2026-II · Ago – Nov</span>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">SD1004 · Plan académico</div>
+  <h1>Estructura<br />de <span>Datos</span></h1>
+  <p class="hero-sub">
+    El arte de organizar la información para que el software piense rápido, use bien la memoria y escale sin romperse.
+  </p>
+  <div class="hero-chips">
+    <div class="hero-chip"><b>4</b> créditos</div>
+    <div class="hero-chip"><b>Mar &amp; Jue</b> · 14 semanas</div>
+    <div class="hero-chip"><b>3</b> unidades didácticas</div>
+    <div class="hero-chip"><b>192 h</b> totales</div>
+    <div class="hero-chip">Prerrequisito: <b>SD1002</b></div>
+    <div class="hero-chip">Docente: <b>Juan Duque</b></div>
+  </div>
+</div>
+
+<!-- ¿PARA QUÉ SIRVE ESTO? -->
+<section class="bg-gris">
+  <div class="section-inner">
+    <p class="section-label">Motivación</p>
+    <h2 class="section-title">¿Para qué sirve esto en la <span>vida real</span>?</h2>
+    <p class="section-desc">
+      Cada app que usas a diario tiene estructuras de datos por debajo. No son teoría abstracta — son la razón por la que Google Maps encuentra una ruta en segundos, o Spotify te recomienda canciones sin pensarlo.
+    </p>
+
+    <div class="use-cases-grid">
+
+      <div class="use-card">
+        <div class="use-card-icon">🗺️</div>
+        <div class="use-card-app">Google Maps · Waze</div>
+        <div class="use-card-title">Encontrar la ruta más rápida</div>
+        <div class="use-card-struct">Grafos + algoritmos de camino mínimo</div>
+        <p class="use-card-desc">Las ciudades son nodos, las calles son aristas con peso (distancia, tiempo). El algoritmo de Dijkstra recorre el grafo y encuentra el camino óptimo.</p>
+      </div>
+
+      <div class="use-card">
+        <div class="use-card-icon">⏪</div>
+        <div class="use-card-app">Word · Photoshop · VS Code</div>
+        <div class="use-card-title">Ctrl + Z · Deshacer cualquier acción</div>
+        <div class="use-card-struct">Pila (Stack)</div>
+        <p class="use-card-desc">Cada acción se apila. Al deshacer, se saca la última. Lo último que hiciste es lo primero en desaparecer. LIFO puro.</p>
+      </div>
+
+      <div class="use-card">
+        <div class="use-card-icon">🖨️</div>
+        <div class="use-card-app">Impresoras · Call centers · Streaming</div>
+        <div class="use-card-title">Gestionar turnos y colas de espera</div>
+        <div class="use-card-struct">Cola (Queue)</div>
+        <p class="use-card-desc">El primer trabajo enviado a la impresora, primero que se imprime. Netflix usa colas para gestionar la carga de video en buffers.</p>
+      </div>
+
+      <div class="use-card">
+        <div class="use-card-icon">🔍</div>
+        <div class="use-card-app">Buscadores · Bases de datos</div>
+        <div class="use-card-title">Búsqueda ultrarrápida entre millones de datos</div>
+        <div class="use-card-struct">Árboles B / Árboles de búsqueda</div>
+        <p class="use-card-desc">MySQL y PostgreSQL usan árboles B para indexar tablas. Por eso una consulta sobre millones de registros tarda milisegundos.</p>
+      </div>
+
+      <div class="use-card">
+        <div class="use-card-icon">👥</div>
+        <div class="use-card-app">Facebook · LinkedIn · Instagram</div>
+        <div class="use-card-title">"Personas que quizás conozcas"</div>
+        <div class="use-card-struct">Grafos de amigos / seguidores</div>
+        <p class="use-card-desc">Cada persona es un nodo, cada amistad una arista. El algoritmo recorre el grafo a 2 o 3 saltos para encontrar conexiones en común.</p>
+      </div>
+
+      <div class="use-card">
+        <div class="use-card-icon">📂</div>
+        <div class="use-card-app">Windows Explorer · macOS Finder</div>
+        <div class="use-card-title">Carpetas dentro de carpetas</div>
+        <div class="use-card-struct">Árbol (estructura jerárquica)</div>
+        <p class="use-card-desc">El sistema de archivos es un árbol: la raíz es el disco duro, cada carpeta es un nodo, cada archivo es una hoja. Siempre hay un único padre.</p>
+      </div>
+
+      <div class="use-card">
+        <div class="use-card-icon">📈</div>
+        <div class="use-card-app">Juegos · Simulaciones · IA</div>
+        <div class="use-card-title">Ordenar rankings y tablas de posiciones</div>
+        <div class="use-card-struct">Arreglos + Algoritmos de ordenamiento</div>
+        <p class="use-card-desc">Una tabla de clasificación en tiempo real necesita ordenar miles de puntajes en milisegundos. La elección del algoritmo define si el juego va fluido o no.</p>
+      </div>
+
+      <div class="use-card">
+        <div class="use-card-icon">🤖</div>
+        <div class="use-card-app">ChatGPT · Alexa · Siri</div>
+        <div class="use-card-title">Entender el contexto de una conversación</div>
+        <div class="use-card-struct">Árboles de decisión + Listas</div>
+        <p class="use-card-desc">Los asistentes de voz recorren árboles de intención para decidir qué responder. La lista de contexto guarda los últimos mensajes para mantener coherencia.</p>
+      </div>
+
+    </div>
+
+    <div style="margin-top: 36px">
+      <div class="quote-block">
+        <p>
+          Cuando eliges una estructura de datos, no solo estás organizando información —
+          estás <strong>decidiendo qué tan rápido y eficiente</strong> será tu software.
+          Esa decisión puede hacer la diferencia entre una app que vuela y una que se cuelga.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UNIDADES -->
+<section>
+  <div class="section-inner">
+    <p class="section-label">Contenido del curso</p>
+    <h2 class="section-title">Tres unidades, <span>un camino</span></h2>
+    <p class="section-desc">
+      Avanzamos de lo simple a lo complejo, siempre con el enfoque en entender el concepto antes de implementarlo.
+      Primero diagramamos, luego razonamos, luego (si quieres) codificamos.
+    </p>
+    <div class="units-wrap">
+
+      <div class="unit-row u1">
+        <div class="unit-num-bar">
+          <span class="u-label">Unidad</span>
+          1
+        </div>
+        <div class="unit-body">
+          <div class="unit-sem">Semanas 1–5 &nbsp;·&nbsp; 30% del total</div>
+          <div class="unit-title">Conociendo las estructuras de datos</div>
+          <p class="unit-pitch">
+            Empezamos desde cero: qué son, cómo se clasifican y por qué importan. Aprendemos a medir si un algoritmo es eficiente
+            (Big O), exploramos la recursividad con ejemplos visuales y dominamos los arreglos — la estructura más fundamental de todas.
+          </p>
+          <div class="unit-topics">
+            <span class="topic-tag">Clasificación de estructuras</span>
+            <span class="topic-tag">Tipos de datos primitivos</span>
+            <span class="topic-tag">Complejidad algorítmica · Big O</span>
+            <span class="topic-tag">Recursividad</span>
+            <span class="topic-tag">Arreglos 1D y 2D</span>
+            <span class="topic-tag">Búsqueda y ordenamiento</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="unit-row u2">
+        <div class="unit-num-bar">
+          <span class="u-label">Unidad</span>
+          2
+        </div>
+        <div class="unit-body">
+          <div class="unit-sem">Semanas 6–10 &nbsp;·&nbsp; 30% del total</div>
+          <div class="unit-title">Gestionando eficientemente la memoria</div>
+          <p class="unit-pitch">
+            Las estructuras dinámicas crecen y encogen según la necesidad. Aquí aprendemos listas enlazadas — nodos que se conectan como eslabones — y dos de las estructuras más usadas en software: pilas y colas. Al terminar entenderás por qué el Ctrl+Z funciona así.
+          </p>
+          <div class="unit-topics">
+            <span class="topic-tag">Memoria dinámica vs. estática</span>
+            <span class="topic-tag">Listas enlazadas simples y dobles</span>
+            <span class="topic-tag">Pilas · LIFO</span>
+            <span class="topic-tag">Colas · FIFO</span>
+            <span class="topic-tag">Cola de prioridad</span>
+            <span class="topic-tag">Cuándo usar cada estructura</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="unit-row u3">
+        <div class="unit-num-bar" style="background:var(--dorado-dark)">
+          <span class="u-label">Unidad</span>
+          3
+        </div>
+        <div class="unit-body">
+          <div class="unit-sem">Semanas 11–14 &nbsp;·&nbsp; 40% del total</div>
+          <div class="unit-title">Usando estructuras jerárquicas y de red</div>
+          <p class="unit-pitch">
+            Llegamos a las estructuras más poderosas: árboles y grafos. Aquí es donde todo cobra sentido — Google Maps, el sistema de archivos, las redes sociales. Modelarás un problema real de tu entorno usando estas estructuras como proyecto final.
+          </p>
+          <div class="unit-topics">
+            <span class="topic-tag">Árboles binarios · BST</span>
+            <span class="topic-tag">Recorridos: inorden, preorden, postorden</span>
+            <span class="topic-tag">Árboles balanceados · AVL</span>
+            <span class="topic-tag">Grafos dirigidos y no dirigidos</span>
+            <span class="topic-tag">Recorridos BFS y DFS</span>
+            <span class="topic-tag">Modelado de problemas reales</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- INFORMACIÓN GENERAL -->
+<section class="bg-verde">
+  <div class="section-inner">
+    <p class="section-label" style="color:rgba(255,255,255,.55)">Datos clave</p>
+    <h2 class="section-title" style="color:#fff; margin-bottom:28px;">Información <span style="color:var(--dorado)">general</span></h2>
+    <div class="info-strip">
+      <div class="info-ic"><div class="val">11 Ago</div><div class="lbl">Primera clase</div></div>
+      <div class="info-ic"><div class="val">13 Nov</div><div class="lbl">Última clase</div></div>
+      <div class="info-ic"><div class="val">4 h</div><div class="lbl">Acompañamiento / sem</div></div>
+      <div class="info-ic"><div class="val">8 h</div><div class="lbl">Trabajo autónomo / sem</div></div>
+      <div class="info-ic"><div class="val">SD1002</div><div class="lbl">Prerrequisito</div></div>
+      <div class="info-ic"><div class="val">30·30·40</div><div class="lbl">Distribución de notas</div></div>
+    </div>
+    <div style="background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.14); border-radius:var(--radius); padding:22px 26px;">
+      <div style="font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--dorado);margin-bottom:8px;">Pregunta que guía el semestre</div>
+      <p style="font-size:.98rem;color:rgba(255,255,255,.82);font-style:italic;line-height:1.65;">
+        "¿Cómo utilizar la memoria y el tiempo de ejecución de manera eficiente mediante estructuras de datos adecuadas,
+        según los requerimientos y recursos disponibles en el desarrollo de una aplicación?"
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CALIFICACIONES -->
+<section class="bg-gris">
+  <div class="section-inner">
+    <p class="section-label">Evaluación</p>
+    <h2 class="section-title">¿Cómo te <span>evaluamos</span>?</h2>
+    <p class="section-desc">
+      No memorización — comprensión. Los entregables son diagramas, análisis y demostraciones. El nivel de programación requerido es progresivo y siempre explicado antes de pedirse.
+    </p>
+    <div class="cortes-grid">
+
+      <div class="corte-card c1">
+        <div class="corte-header">
+          <div class="corte-pct">30%</div>
+          <div class="corte-meta">
+            <strong>Primer corte</strong>
+            <span>Unidad 1 · Estructuras estáticas</span>
+          </div>
+        </div>
+        <div class="corte-body">
+          <div class="corte-item"><span>Quiz conceptual — clasificación y Big O</span><span class="pct">10%</span></div>
+          <div class="corte-item"><span>Diagrama de arreglo con operaciones en draw.io</span><span class="pct">12%</span></div>
+          <div class="corte-item"><span>Traza de ejecución de un algoritmo recursivo</span><span class="pct">8%</span></div>
+          <div class="sicau-bar">⚠ SICAU · Semana 5 · 8–12 Sep 2026</div>
+        </div>
+      </div>
+
+      <div class="corte-card c2">
+        <div class="corte-header">
+          <div class="corte-pct">30%</div>
+          <div class="corte-meta">
+            <strong>Segundo corte</strong>
+            <span>Unidad 2 · Estructuras dinámicas</span>
+          </div>
+        </div>
+        <div class="corte-body">
+          <div class="corte-item"><span>Diagrama completo de lista enlazada</span><span class="pct">10%</span></div>
+          <div class="corte-item"><span>Comparativo Pila vs. Cola — diagrama y pseudocódigo</span><span class="pct">15%</span></div>
+          <div class="corte-item"><span>Quiz técnico Unidad 2</span><span class="pct">5%</span></div>
+          <div class="sicau-bar">⚠ SICAU · Semana 10 · 13–17 Oct 2026</div>
+        </div>
+      </div>
+
+      <div class="corte-card c3">
+        <div class="corte-header">
+          <div class="corte-pct">40%</div>
+          <div class="corte-meta">
+            <strong>Tercer corte</strong>
+            <span>Unidad 3 · Proyecto final</span>
+          </div>
+        </div>
+        <div class="corte-body">
+          <div class="corte-item"><span>Proyecto — modelado de problema real</span><span class="pct">25%</span></div>
+          <div class="corte-item"><span>Sustentación en vivo · explicar decisiones</span><span class="pct">10%</span></div>
+          <div class="corte-item"><span>Portafolio de diagramas del semestre</span><span class="pct">5%</span></div>
+          <div class="sicau-bar">⚠ SICAU · Semana 16 · 24–28 Nov 2026</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CALENDARIO -->
+<section>
+  <div class="section-inner">
+    <p class="section-label">Semana a semana</p>
+    <h2 class="section-title">Calendario de <span>clases</span></h2>
+    <p class="section-desc">Martes y Jueves · Semestre Ago – Nov 2026</p>
+    <div class="cal-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Sem.</th>
+            <th>Fechas</th>
+            <th>Tema</th>
+            <th>Actividad / Entregable</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td class="sem-n">1</td>
+            <td class="dates-col"><span class="d">Mar</span> 11 Ago<br/><span class="d">Jue</span> 13 Ago</td>
+            <td>
+              <div class="cal-unit cu1">U1 · Introducción</div>
+              <div class="cal-main">¿Qué son las estructuras de datos?</div>
+              <div class="cal-sub">Clasificación, importancia en el software real. Relación entre estructuras y memoria del computador.</div>
+            </td>
+            <td>
+              <span class="act-tag at-lab">🗺️ Diagrama</span><br/>
+              Mapa conceptual de clasificación de estructuras en draw.io. Sin código.
+            </td>
+          </tr>
+
+          <tr class="travel-row">
+            <td class="sem-n">2</td>
+            <td class="dates-col"><span class="d">Mar</span> 18 Ago<br/><span class="d">Jue</span> 20 Ago</td>
+            <td>
+              <div class="cal-main">✈ Sin clases — Docente de viaje</div>
+              <div class="cal-sub">Actividad autónoma: explorar VisuAlgo y completar el mapa conceptual.</div>
+            </td>
+            <td>
+              <span class="act-tag at-auto">📖 Autónoma</span><br/>
+              Sin sesión presencial.
+            </td>
+          </tr>
+
+          <tr>
+            <td class="sem-n">3</td>
+            <td class="dates-col"><span class="d">Mar</span> 25 Ago<br/><span class="d">Jue</span> 27 Ago</td>
+            <td>
+              <div class="cal-unit cu1">U1 · Complejidad</div>
+              <div class="cal-main">Complejidad algorítmica — Big O Notation</div>
+              <div class="cal-sub">¿Cómo medir si un algoritmo es eficiente? O(1), O(n), O(n²). Por qué importa a escala.</div>
+            </td>
+            <td>
+              <span class="act-tag at-lab">🎬 VisuAlgo</span><br/>
+              Comparar búsqueda lineal vs. binaria. Registrar diferencia de pasos.
+            </td>
+          </tr>
+
+          <tr>
+            <td class="sem-n">4</td>
+            <td class="dates-col"><span class="d">Mar</span> 1 Sep<br/><span class="d">Jue</span> 3 Sep</td>
+            <td>
+              <div class="cal-unit cu1">U1 · Arreglos</div>
+              <div class="cal-main">Arreglos 1D y 2D — operaciones fundamentales</div>
+              <div class="cal-sub">Inserción, eliminación, búsqueda, ordenamiento. Diagramas de estado de la memoria.</div>
+            </td>
+            <td>
+              <span class="act-tag at-ent">📦 Entrega</span><br/>
+              Diagrama de arreglo con todas las operaciones + pseudocódigo de una operación.
+            </td>
+          </tr>
+
+          <tr>
+            <td class="sem-n">5</td>
+            <td class="dates-col"><span class="d">Mar</span> 8 Sep<br/><span class="d">Jue</span> 10 Sep</td>
+            <td>
+              <div class="cal-unit cu1">U1 · Recursividad y cierre</div>
+              <div class="cal-main">Recursividad — una función que se llama a sí misma</div>
+              <div class="cal-sub">Factorial, Fibonacci, Torres de Hanói. Traza en la pila de llamadas. Quiz de cierre.</div>
+            </td>
+            <td>
+              <span class="act-tag at-quiz">✅ SICAU 30%</span><br/>
+              Quiz U1 + traza de recursividad.<br/>
+              <span class="at-sicau">⚠ SICAU · 8–12 Sep 2026</span>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="sem-n">6</td>
+            <td class="dates-col"><span class="d">Mar</span> 15 Sep<br/><span class="d">Jue</span> 17 Sep</td>
+            <td>
+              <div class="cal-unit cu2">U2 · Listas enlazadas</div>
+              <div class="cal-main">Memoria dinámica — Listas enlazadas simples</div>
+              <div class="cal-sub">Concepto de nodo, puntero y enlace. Visualizar cómo los nodos se conectan como eslabones.</div>
+            </td>
+            <td>
+              <span class="act-tag at-lab">🗺️ Diagrama</span><br/>
+              Lista enlazada simple en draw.io. Visualizar inserción y eliminación.
+            </td>
+          </tr>
+
+          <tr>
+            <td class="sem-n">7</td>
+            <td class="dates-col"><span class="d">Mar</span> 22 Sep<br/><span class="d">Jue</span> 24 Sep</td>
+            <td>
+              <div class="cal-unit cu2">U2 · Listas avanzadas</div>
+              <div class="cal-main">Listas dobles y circulares</div>
+              <div class="cal-sub">Diferencias clave. Casos donde conviene cada variante. Diagrama comparativo de las tres.</div>
+            </td>
+            <td>
+              <span class="act-tag at-lab">🎞️ Visualizador</span><br/>
+              Animación en Algorithm Visualizer. Diagrama comparativo.
+            </td>
+          </tr>
+
+          <tr>
+            <td class="sem-n">8</td>
+            <td class="dates-col"><span class="d">Mar</span> 29 Sep<br/><span class="d">Jue</span> 1 Oct</td>
+            <td>
+              <div class="cal-unit cu2">U2 · Pilas</div>
+              <div class="cal-main">Pilas (Stack) — el Ctrl+Z y las llamadas a funciones</div>
+              <div class="cal-sub">Principio LIFO. Operaciones push y pop. Por qué el historial del navegador funciona así.</div>
+            </td>
+            <td>
+              <span class="act-tag at-lab">🗺️ Diagrama</span><br/>
+              Diagrama de estados antes y después de push/pop. Pseudocódigo de operaciones.
+            </td>
+          </tr>
+
+          <tr>
+            <td class="sem-n">9</td>
+            <td class="dates-col"><span class="d">Mar</span> 6 Oct<br/><span class="d">Jue</span> 8 Oct</td>
+            <td>
+              <div class="cal-unit cu2">U2 · Colas</div>
+              <div class="cal-main">Colas (Queue) — turnos, impresoras y buffers de video</div>
+              <div class="cal-sub">Principio FIFO. Cola simple, deque y cola de prioridad. Casos de uso en sistemas reales.</div>
+            </td>
+            <td>
+              <span class="act-tag at-ent">📦 Entrega</span><br/>
+              Diagrama comparativo Pila vs. Cola con ejemplos reales + pseudocódigo.
+            </td>
+          </tr>
+
+          <tr>
+            <td class="sem-n">10</td>
+            <td class="dates-col"><span class="d">Mar</span> 13 Oct<br/><span class="d">Jue</span> 15 Oct</td>
+            <td>
+              <div class="cal-unit cu2">U2 · Cierre</div>
+              <div class="cal-main">Demo de diagramas + Quiz Unidad 2</div>
+              <div class="cal-sub">Socialización, retroalimentación entre pares, evaluación técnica.</div>
+            </td>
+            <td>
+              <span class="act-tag at-quiz">✅ SICAU 30%</span><br/>
+              Quiz U2 + demo de diagrama.<br/>
+              <span class="at-sicau">⚠ SICAU · 13–17 Oct 2026</span>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="sem-n">11</td>
+            <td class="dates-col"><span class="d">Mar</span> 20 Oct<br/><span class="d">Jue</span> 22 Oct</td>
+            <td>
+              <div class="cal-unit cu3">U3 · Árboles</div>
+              <div class="cal-main">Árboles binarios y árbol de búsqueda (BST)</div>
+              <div class="cal-sub">Raíz, hoja, nivel, altura. Por qué la búsqueda es O(log n). Cómo se insertan nodos.</div>
+            </td>
+            <td>
+              <span class="act-tag at-lab">🌳 BST</span><br/>
+              Construir un BST en VisuAlgo insertando 8 valores. Documentar cada nivel.
+            </td>
+          </tr>
+
+          <tr>
+            <td class="sem-n">12</td>
+            <td class="dates-col"><span class="d">Mar</span> 27 Oct<br/><span class="d">Jue</span> 29 Oct</td>
+            <td>
+              <div class="cal-unit cu3">U3 · Recorridos</div>
+              <div class="cal-main">Recorrer árboles: inorden, preorden, postorden</div>
+              <div class="cal-sub">¿En qué orden se visitan los nodos? Animación paso a paso. Casos de uso de cada recorrido.</div>
+            </td>
+            <td>
+              <span class="act-tag at-lab">🎬 VisuAlgo</span><br/>
+              Animar los tres recorridos y documentar el orden con colores en draw.io.
+            </td>
+          </tr>
+
+          <tr>
+            <td class="sem-n">13</td>
+            <td class="dates-col"><span class="d">Mar</span> 3 Nov<br/><span class="d">Jue</span> 5 Nov</td>
+            <td>
+              <div class="cal-unit cu3">U3 · Grafos</div>
+              <div class="cal-main">Grafos — la estructura detrás de Google Maps y las redes sociales</div>
+              <div class="cal-sub">Nodos y aristas. Representación visual. Recorridos BFS (en anchura) y DFS (en profundidad).</div>
+            </td>
+            <td>
+              <span class="act-tag at-lab">🕸️ Modelado</span><br/>
+              Diseñar un grafo de problema real: red de rutas, dependencias de materias, etc. Diagrama en draw.io.
+            </td>
+          </tr>
+
+          <tr>
+            <td class="sem-n">14</td>
+            <td class="dates-col"><span class="d">Mar</span> 10 Nov<br/><span class="d">Jue</span> 13 Nov</td>
+            <td>
+              <div class="cal-unit cu3">U3 · Demo final 🏁</div>
+              <div class="cal-main">Sustentación del proyecto final</div>
+              <div class="cal-sub">Cada grupo presenta su modelado, explica decisiones de diseño y responde preguntas del docente.</div>
+            </td>
+            <td>
+              <span class="act-tag at-demo">✅ SICAU 40%</span><br/>
+              Proyecto + portafolio de diagramas.<br/>
+              <span class="at-sicau">⚠ SICAU · 24–28 Nov 2026</span>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- PROYECTO FINAL -->
+<section class="bg-dorado-claro">
+  <div class="section-inner">
+    <p class="section-label" style="color:var(--dorado-dark)">Proyecto final · 40%</p>
+    <h2 class="section-title">Modelar un <span>problema real</span></h2>
+    <p class="section-desc">
+      No pedimos una app compleja. Pedimos que tomes un problema que te rodea, lo analices y demuestres que sabes qué estructura lo resuelve mejor y por qué.
+    </p>
+    <div class="proj-grid">
+
+      <div class="proj-card" style="border-left-color:var(--verde)">
+        <div class="icon">🎯</div>
+        <h4>Problema real</h4>
+        <p>Elige un problema de tu entorno: rutas de transporte en tu ciudad, horario de materias con prerrequisitos, red de contactos, sistema de turnos. Algo concreto que te interese.</p>
+      </div>
+
+      <div class="proj-card" style="border-left-color:var(--verde-med)">
+        <div class="icon">🗺️</div>
+        <h4>Diagrama principal</h4>
+        <p>Diagrama de la estructura elegida en draw.io. Mínimo 10 nodos. Muestra claramente la relación entre elementos y el tipo de estructura que justifica la solución.</p>
+      </div>
+
+      <div class="proj-card" style="border-left-color:var(--verde)">
+        <div class="icon">📝</div>
+        <h4>Pseudocódigo</h4>
+        <p>Dos operaciones clave sobre tu estructura: insertar, buscar o recorrer. En PSeInt o lenguaje natural estructurado. No se requiere código en ningún lenguaje real.</p>
+      </div>
+
+      <div class="proj-card" style="border-left-color:var(--dorado-dark)">
+        <div class="icon">📂</div>
+        <h4>Portafolio en GitHub</h4>
+        <p>Repositorio con el diagrama, el pseudocódigo y los entregables del semestre. El README explica el problema elegido y por qué la estructura escogida es la mejor solución.</p>
+      </div>
+
+      <div class="proj-card" style="border-left-color:var(--verde-med)">
+        <div class="icon">🐍</div>
+        <h4>Código Python — bonus</h4>
+        <p>Implementación básica en Google Colab. No es obligatorio. Suma hasta 1 punto adicional. Lo que importa: que puedas explicar el código línea a línea, no que sea perfecto.</p>
+      </div>
+
+      <div class="proj-card proj-wide">
+        <div class="icon">🎤</div>
+        <div>
+          <h4>Demo en vivo — 10 minutos por grupo</h4>
+          <p>Presentas el problema, muestras el diagrama y defiendes por qué elegiste esa estructura y no otra. El docente pregunta: <em>"¿Qué pasa si agregas este nodo?"</em>, <em>"¿Por qué no usaste una lista?"</em>. El nivel de las preguntas se ajusta al nivel del grupo — el objetivo es que demuestres que lo entiendes, no que te trampeen.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- POLÍTICA DE IA -->
+<section>
+  <div class="section-inner">
+    <p class="section-label">Política de uso</p>
+    <h2 class="section-title">La IA como <span>copiloto</span>, no como autor</h2>
+    <p class="section-desc">
+      ChatGPT, Claude, Gemini y similares son herramientas válidas en este curso — con responsabilidad.
+      El estudiante sigue siendo el autor y el responsable de todo lo que entrega.
+    </p>
+    <div class="ia-grid">
+
+      <div class="ia-card ia-ok">
+        <h4>✅ Uso permitido</h4>
+        <ul>
+          <li>Pedir que explique qué es una lista enlazada o cómo funciona un BST</li>
+          <li>Que revise tu diagrama y señale errores conceptuales</li>
+          <li>Que corrija tu pseudocódigo manteniendo tu lógica</li>
+          <li>Generar ejemplos para practicar un concepto</li>
+          <li>Declarar el uso de IA en el README <strong>(suma puntos)</strong></li>
+        </ul>
+      </div>
+
+      <div class="ia-card ia-no">
+        <h4>❌ Uso no permitido</h4>
+        <ul>
+          <li>"Hazme el diagrama del proyecto final"</li>
+          <li>Entregar un diagrama que no puedes explicar</li>
+          <li>No saber por qué elegiste esa estructura</li>
+          <li>Pseudocódigo que no entiendes si te pregunto línea a línea</li>
+          <li>Todos los grupos con el mismo problema y diagrama idéntico</li>
+        </ul>
+      </div>
+
+      <div class="ia-card ia-ver">
+        <h4>🔍 Cómo se verifica</h4>
+        <ul>
+          <li>Preguntas en la sustentación sobre cada decisión tomada</li>
+          <li>"¿Por qué conectaste ese nodo ahí y no allá?"</li>
+          <li>Modificar el diagrama en vivo durante la demo</li>
+          <li>Explicar el recorrido paso a paso señalando el diagrama</li>
+          <li>Las preguntas se calibran al nivel del grupo</li>
+        </ul>
+      </div>
+
+      <div class="ia-card ia-tip">
+        <h4>💡 La clave</h4>
+        <ul>
+          <li>La IA es un <strong>tutor 24/7</strong> — úsala para aprender, no para entregar</li>
+          <li>En el trabajo también se usa IA, pero te exigen entender lo que produce</li>
+          <li>Un diagrama tuyo, aunque más simple, vale más que uno de la IA</li>
+          <li>Declarar el uso de IA suma puntos — la transparencia se premia</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <img src="https://pascualbravo.edu.co/wp-content/uploads/2026/03/Logo-I.U.Pascual-Bravo_500-X-500-px.png"
+         alt="Pascual Bravo" onerror="this.style.display='none'" />
+    <p><strong>Institución Universitaria Pascual Bravo</strong> · Facultad de Ingeniería · SD1004</p>
+    <p>Docente: Juan Duque</p>
+    <p style="font-size:.74rem;margin-top:4px;">"Tradición – Transformación – Innovación" · Semestre 2026</p>
+  </div>
+</footer>
+
+</body>
+</html>
