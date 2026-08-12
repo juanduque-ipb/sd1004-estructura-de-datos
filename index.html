@@ -517,6 +517,20 @@
 </head>
 <body>
 
+<!-- NAV -->
+<nav style="background:var(--verde-oscuro);border-bottom:1px solid rgba(255,255,255,.1);padding:0 32px;position:sticky;top:0;z-index:100;">
+  <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:48px;">
+    <a href="index.html" style="text-decoration:none;color:#fff;font-weight:700;font-size:.9rem;display:flex;align-items:center;gap:8px;">
+      <span style="background:var(--dorado);color:var(--verde-oscuro);font-size:.72rem;font-weight:800;padding:2px 7px;border-radius:5px;">SD1004</span>
+      Estructura de Datos
+    </a>
+    <div style="display:flex;gap:6px;">
+      <a href="index.html" style="text-decoration:none;color:#fff;font-size:.83rem;font-weight:600;padding:6px 14px;border-radius:6px;background:rgba(255,255,255,.15);">Inicio</a>
+      <a href="plan.html" style="text-decoration:none;color:rgba(255,255,255,.75);font-size:.83rem;font-weight:500;padding:6px 14px;border-radius:6px;">Semanas 1–3 autónomas →</a>
+    </div>
+  </div>
+</nav>
+
 <!-- HEADER -->
 <header>
   <div class="header-inner">
@@ -543,16 +557,24 @@
   </p>
   <div class="hero-chips">
     <div class="hero-chip"><b>4</b> créditos</div>
-    <div class="hero-chip"><b>Mar &amp; Jue</b> · 14 semanas</div>
+    <div class="hero-chip"><b>Lun &amp; Mié</b> · 14 semanas</div>
     <div class="hero-chip"><b>3</b> unidades didácticas</div>
     <div class="hero-chip"><b>192 h</b> totales</div>
     <div class="hero-chip">Prerrequisito: <b>SD1002</b></div>
     <div class="hero-chip">Docente: <b>Juan Duque</b></div>
   </div>
+  <div style="margin-top:32px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
+    <a href="plan.html" style="display:inline-block;background:var(--dorado);color:var(--verde-oscuro);font-weight:800;font-size:.95rem;padding:12px 28px;border-radius:8px;text-decoration:none;letter-spacing:.02em;">
+      📖 Actividades semanas 1–3 →
+    </a>
+    <a href="#casos" style="display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:#fff;font-weight:600;font-size:.9rem;padding:12px 24px;border-radius:8px;text-decoration:none;">
+      ¿Para qué sirve esto? ↓
+    </a>
+  </div>
 </div>
 
 <!-- ¿PARA QUÉ SIRVE ESTO? -->
-<section class="bg-gris">
+<section class="bg-gris" id="casos">
   <div class="section-inner">
     <p class="section-label">Motivación</p>
     <h2 class="section-title">¿Para qué sirve esto en la <span>vida real</span>?</h2>
@@ -728,7 +750,7 @@
     <p class="section-label" style="color:rgba(255,255,255,.55)">Datos clave</p>
     <h2 class="section-title" style="color:#fff; margin-bottom:28px;">Información <span style="color:var(--dorado)">general</span></h2>
     <div class="info-strip">
-      <div class="info-ic"><div class="val">11 Ago</div><div class="lbl">Primera clase</div></div>
+      <div class="info-ic"><div class="val">10 Ago</div><div class="lbl">Primera clase</div></div>
       <div class="info-ic"><div class="val">13 Nov</div><div class="lbl">Última clase</div></div>
       <div class="info-ic"><div class="val">4 h</div><div class="lbl">Acompañamiento / sem</div></div>
       <div class="info-ic"><div class="val">8 h</div><div class="lbl">Trabajo autónomo / sem</div></div>
@@ -812,7 +834,7 @@
   <div class="section-inner">
     <p class="section-label">Semana a semana</p>
     <h2 class="section-title">Calendario de <span>clases</span></h2>
-    <p class="section-desc">Martes y Jueves · Semestre Ago – Nov 2026</p>
+    <p class="section-desc">Lunes y Miércoles · Semestre Ago – Nov 2026</p>
     <div class="cal-wrap">
       <table>
         <thead>
@@ -825,36 +847,104 @@
         </thead>
         <tbody>
 
-          <tr>
+          <tr class="travel-row">
             <td class="sem-n">1</td>
-            <td class="dates-col"><span class="d">Mar</span> 11 Ago<br/><span class="d">Jue</span> 13 Ago</td>
-            <td>
-              <div class="cal-unit cu1">U1 · Introducción</div>
-              <div class="cal-main">¿Qué son las estructuras de datos?</div>
-              <div class="cal-sub">Clasificación, importancia en el software real. Relación entre estructuras y memoria del computador.</div>
+            <td class="dates-col">
+              <span class="d">Lun</span> 10 Ago <span style="color:#E53935;font-weight:700;font-size:.7rem;">sin clase</span><br/>
+              <span class="d">Mié</span> 12 Ago <span style="color:#E53935;font-weight:700;font-size:.7rem;">sin clase</span>
             </td>
             <td>
-              <span class="act-tag at-lab">🗺️ Diagrama</span><br/>
-              Mapa conceptual de clasificación de estructuras en draw.io. Sin código.
+              <div class="cal-main">🌎 Sin clases — Suspensión por sismo</div>
+              <div class="cal-sub">Semana suspendida. Ver actividades autónomas semanas 1–3 ↓</div>
+            </td>
+            <td>
+              <span class="act-tag at-auto">📖 Autónoma</span><br/>
+              Sin sesión presencial. Ver actividades ↓
             </td>
           </tr>
 
           <tr class="travel-row">
             <td class="sem-n">2</td>
-            <td class="dates-col"><span class="d">Mar</span> 18 Ago<br/><span class="d">Jue</span> 20 Ago</td>
+            <td class="dates-col"><span class="d">Lun</span> 17 Ago<br/><span class="d">Mié</span> 19 Ago</td>
             <td>
               <div class="cal-main">✈ Sin clases — Docente de viaje</div>
-              <div class="cal-sub">Actividad autónoma: explorar VisuAlgo y completar el mapa conceptual.</div>
+              <div class="cal-sub">Semana autónoma completa. Ver actividades propuestas ↓ · <strong>Regreso: Lun 25 Ago</strong></div>
             </td>
             <td>
               <span class="act-tag at-auto">📖 Autónoma</span><br/>
-              Sin sesión presencial.
+              Sin sesión presencial. Ver actividades ↓
+            </td>
+          </tr>
+
+          <!-- BLOQUE AUTÓNOMO SEMANAS 1-2 -->
+          <tr style="background:linear-gradient(135deg,#E8F5EE,#fff);">
+            <td colspan="4" style="padding:0;">
+              <div style="border-left:4px solid var(--verde);padding:22px 24px;">
+                <div style="font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--verde);margin-bottom:10px;">
+                  📖 Actividades autónomas · Semanas 1, 2 y parte de la 3 (≈3 semanas)
+                </div>
+                <p style="font-size:.88rem;color:var(--gris-texto);margin-bottom:16px;max-width:800px;">
+                  Tres semanas sin clases presenciales por circunstancias externas — sismo y viaje del docente. Estas actividades <strong>no se califican</strong>, pero te ponen en contexto para que cuando volvamos el <strong>Lun 25 Ago</strong> no empecemos desde cero.
+                  Haz lo que puedas: cada una toma entre 20 y 40 minutos.
+                </p>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;">
+
+                  <div style="background:#fff;border:1px solid var(--gris-med);border-radius:10px;padding:16px;">
+                    <div style="font-size:1.3rem;margin-bottom:8px;">🎬</div>
+                    <div style="font-weight:700;font-size:.88rem;margin-bottom:5px;">Mira: "¿Qué es una estructura de datos?"</div>
+                    <div style="font-size:.8rem;color:var(--gris-texto);">
+                      Busca en YouTube: <em>"Data Structures — CS50"</em> (hay versión en español). 12 minutos. Toma nota de una estructura que te llame la atención.
+                    </div>
+                  </div>
+
+                  <div style="background:#fff;border:1px solid var(--gris-med);border-radius:10px;padding:16px;">
+                    <div style="font-size:1.3rem;margin-bottom:8px;">🕹️</div>
+                    <div style="font-weight:700;font-size:.88rem;margin-bottom:5px;">Juega con VisuAlgo — Arreglos</div>
+                    <div style="font-size:.8rem;color:var(--gris-texto);">
+                      Entra a <strong>visualgo.net/en/sorting</strong>. Selecciona "Bubble Sort", ingresa 6 números al azar y observa cómo se ordena paso a paso. Sin presión.
+                    </div>
+                  </div>
+
+                  <div style="background:#fff;border:1px solid var(--gris-med);border-radius:10px;padding:16px;">
+                    <div style="font-size:1.3rem;margin-bottom:8px;">🗺️</div>
+                    <div style="font-weight:700;font-size:.88rem;margin-bottom:5px;">Dibuja: Mapa de las estructuras</div>
+                    <div style="font-size:.8rem;color:var(--gris-texto);">
+                      Abre <strong>draw.io</strong> (app.diagrams.net). Sin reglas: dibuja cómo imaginas que se ven las estructuras que vimos en clase. Guárdalo, lo usaremos de punto de partida.
+                    </div>
+                  </div>
+
+                  <div style="background:#fff;border:1px solid var(--gris-med);border-radius:10px;padding:16px;">
+                    <div style="font-size:1.3rem;margin-bottom:8px;">🤔</div>
+                    <div style="font-weight:700;font-size:.88rem;margin-bottom:5px;">Reto mental: ¿Dónde está la estructura?</div>
+                    <div style="font-size:.8rem;color:var(--gris-texto);">
+                      Escoge 3 apps que usas a diario (Instagram, TikTok, Google, lo que sea) y escribe qué estructura de datos crees que usan internamente y por qué. No importa si te equivocas.
+                    </div>
+                  </div>
+
+                  <div style="background:#fff;border:1px solid var(--gris-med);border-radius:10px;padding:16px;">
+                    <div style="font-size:1.3rem;margin-bottom:8px;">📺</div>
+                    <div style="font-weight:700;font-size:.88rem;margin-bottom:5px;">Video: Complejidad Big O en 5 minutos</div>
+                    <div style="font-size:.8rem;color:var(--gris-texto);">
+                      Busca: <em>"Big O Notation en español"</em> — cualquier video de 5–10 min. La idea es entender por qué no todos los algoritmos son igual de rápidos. No se necesita código.
+                    </div>
+                  </div>
+
+                  <div style="background:var(--verde-claro);border:1px solid var(--verde);border-radius:10px;padding:16px;">
+                    <div style="font-size:1.3rem;margin-bottom:8px;">💬</div>
+                    <div style="font-weight:700;font-size:.88rem;margin-bottom:5px;color:var(--verde-oscuro);">Opcional: comparte con el grupo</div>
+                    <div style="font-size:.8rem;color:var(--verde-oscuro);">
+                      Si quieres, sube tu diagrama o tu reto mental al grupo de WhatsApp o al canal del curso. No se califica — solo es para comparar ideas antes de la semana 3.
+                    </div>
+                  </div>
+
+                </div>
+              </div>
             </td>
           </tr>
 
           <tr>
             <td class="sem-n">3</td>
-            <td class="dates-col"><span class="d">Mar</span> 25 Ago<br/><span class="d">Jue</span> 27 Ago</td>
+            <td class="dates-col"><span class="d">Lun</span> 25 Ago<br/><span class="d">Jue</span> 27 Ago</td>
             <td>
               <div class="cal-unit cu1">U1 · Complejidad</div>
               <div class="cal-main">Complejidad algorítmica — Big O Notation</div>
@@ -868,7 +958,7 @@
 
           <tr>
             <td class="sem-n">4</td>
-            <td class="dates-col"><span class="d">Mar</span> 1 Sep<br/><span class="d">Jue</span> 3 Sep</td>
+            <td class="dates-col"><span class="d">Lun</span> 1 Sep<br/><span class="d">Jue</span> 3 Sep</td>
             <td>
               <div class="cal-unit cu1">U1 · Arreglos</div>
               <div class="cal-main">Arreglos 1D y 2D — operaciones fundamentales</div>
@@ -882,7 +972,7 @@
 
           <tr>
             <td class="sem-n">5</td>
-            <td class="dates-col"><span class="d">Mar</span> 8 Sep<br/><span class="d">Jue</span> 10 Sep</td>
+            <td class="dates-col"><span class="d">Lun</span> 8 Sep<br/><span class="d">Jue</span> 10 Sep</td>
             <td>
               <div class="cal-unit cu1">U1 · Recursividad y cierre</div>
               <div class="cal-main">Recursividad — una función que se llama a sí misma</div>
@@ -897,7 +987,7 @@
 
           <tr>
             <td class="sem-n">6</td>
-            <td class="dates-col"><span class="d">Mar</span> 15 Sep<br/><span class="d">Jue</span> 17 Sep</td>
+            <td class="dates-col"><span class="d">Lun</span> 15 Sep<br/><span class="d">Jue</span> 17 Sep</td>
             <td>
               <div class="cal-unit cu2">U2 · Listas enlazadas</div>
               <div class="cal-main">Memoria dinámica — Listas enlazadas simples</div>
@@ -911,7 +1001,7 @@
 
           <tr>
             <td class="sem-n">7</td>
-            <td class="dates-col"><span class="d">Mar</span> 22 Sep<br/><span class="d">Jue</span> 24 Sep</td>
+            <td class="dates-col"><span class="d">Lun</span> 22 Sep<br/><span class="d">Jue</span> 24 Sep</td>
             <td>
               <div class="cal-unit cu2">U2 · Listas avanzadas</div>
               <div class="cal-main">Listas dobles y circulares</div>
@@ -925,7 +1015,7 @@
 
           <tr>
             <td class="sem-n">8</td>
-            <td class="dates-col"><span class="d">Mar</span> 29 Sep<br/><span class="d">Jue</span> 1 Oct</td>
+            <td class="dates-col"><span class="d">Lun</span> 29 Sep<br/><span class="d">Jue</span> 1 Oct</td>
             <td>
               <div class="cal-unit cu2">U2 · Pilas</div>
               <div class="cal-main">Pilas (Stack) — el Ctrl+Z y las llamadas a funciones</div>
@@ -939,7 +1029,7 @@
 
           <tr>
             <td class="sem-n">9</td>
-            <td class="dates-col"><span class="d">Mar</span> 6 Oct<br/><span class="d">Jue</span> 8 Oct</td>
+            <td class="dates-col"><span class="d">Lun</span> 6 Oct<br/><span class="d">Jue</span> 8 Oct</td>
             <td>
               <div class="cal-unit cu2">U2 · Colas</div>
               <div class="cal-main">Colas (Queue) — turnos, impresoras y buffers de video</div>
@@ -953,7 +1043,7 @@
 
           <tr>
             <td class="sem-n">10</td>
-            <td class="dates-col"><span class="d">Mar</span> 13 Oct<br/><span class="d">Jue</span> 15 Oct</td>
+            <td class="dates-col"><span class="d">Lun</span> 13 Oct<br/><span class="d">Jue</span> 15 Oct</td>
             <td>
               <div class="cal-unit cu2">U2 · Cierre</div>
               <div class="cal-main">Demo de diagramas + Quiz Unidad 2</div>
@@ -968,7 +1058,7 @@
 
           <tr>
             <td class="sem-n">11</td>
-            <td class="dates-col"><span class="d">Mar</span> 20 Oct<br/><span class="d">Jue</span> 22 Oct</td>
+            <td class="dates-col"><span class="d">Lun</span> 20 Oct<br/><span class="d">Jue</span> 22 Oct</td>
             <td>
               <div class="cal-unit cu3">U3 · Árboles</div>
               <div class="cal-main">Árboles binarios y árbol de búsqueda (BST)</div>
@@ -982,7 +1072,7 @@
 
           <tr>
             <td class="sem-n">12</td>
-            <td class="dates-col"><span class="d">Mar</span> 27 Oct<br/><span class="d">Jue</span> 29 Oct</td>
+            <td class="dates-col"><span class="d">Lun</span> 27 Oct<br/><span class="d">Jue</span> 29 Oct</td>
             <td>
               <div class="cal-unit cu3">U3 · Recorridos</div>
               <div class="cal-main">Recorrer árboles: inorden, preorden, postorden</div>
@@ -996,7 +1086,7 @@
 
           <tr>
             <td class="sem-n">13</td>
-            <td class="dates-col"><span class="d">Mar</span> 3 Nov<br/><span class="d">Jue</span> 5 Nov</td>
+            <td class="dates-col"><span class="d">Lun</span> 3 Nov<br/><span class="d">Jue</span> 5 Nov</td>
             <td>
               <div class="cal-unit cu3">U3 · Grafos</div>
               <div class="cal-main">Grafos — la estructura detrás de Google Maps y las redes sociales</div>
@@ -1010,7 +1100,7 @@
 
           <tr>
             <td class="sem-n">14</td>
-            <td class="dates-col"><span class="d">Mar</span> 10 Nov<br/><span class="d">Jue</span> 13 Nov</td>
+            <td class="dates-col"><span class="d">Lun</span> 10 Nov<br/><span class="d">Jue</span> 13 Nov</td>
             <td>
               <div class="cal-unit cu3">U3 · Demo final 🏁</div>
               <div class="cal-main">Sustentación del proyecto final</div>
