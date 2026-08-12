@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Semanas autónomas · SD1004 · I.U. Pascual Bravo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --verde:        #1A6B3C;
+      --verde-oscuro: #0E4525;
+      --verde-claro:  #E8F5EE;
+      --verde-med:    #2E8B57;
+      --dorado:       #E8A020;
+      --dorado-claro: #FFF8EC;
+      --dorado-dark:  #B07800;
+      --gris:         #F4F6F4;
+      --gris-med:     #E8EBE8;
+      --gris-texto:   #4A5568;
+      --texto:        #1A2723;
+      --blanco:       #FFFFFF;
+      --radius:       14px;
+      --shadow:       0 2px 16px rgba(0,0,0,.07);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--blanco); color: var(--texto); line-height: 1.65; }
+
+    /* NAV */
+    nav {
+      background: var(--verde-oscuro);
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      padding: 0 32px;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; height: 48px;
+    }
+    .nav-brand {
+      text-decoration: none; color: #fff; font-weight: 700; font-size: .9rem;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-brand .pill-sm {
+      background: var(--dorado); color: var(--verde-oscuro);
+      font-size: .72rem; font-weight: 800; padding: 2px 7px; border-radius: 5px;
+    }
+    .nav-links { display: flex; gap: 6px; }
+    .nav-links a {
+      text-decoration: none; font-size: .83rem; font-weight: 500;
+      padding: 6px 14px; border-radius: 6px; color: rgba(255,255,255,.75);
+    }
+    .nav-links a.active {
+      background: rgba(255,255,255,.15); color: #fff; font-weight: 600;
+    }
+
+    /* HERO COMPACTO */
+    .hero {
+      background: linear-gradient(135deg, var(--verde-oscuro), var(--verde));
+      padding: 52px 32px 44px;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      background: rgba(232,160,32,.2); border: 1px solid rgba(232,160,32,.4);
+      color: var(--dorado); font-size: .78rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: 4px 14px; border-radius: 20px; margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900;
+      color: #fff; line-height: 1.15; margin-bottom: 12px; letter-spacing: -.02em;
+    }
+    .hero h1 span { color: var(--dorado); }
+    .hero p { color: rgba(255,255,255,.78); font-size: .98rem; max-width: 520px; margin: 0 auto 24px; }
+
+    /* ALERTA de regreso */
+    .comeback-bar {
+      background: var(--dorado-claro);
+      border-top: 3px solid var(--dorado);
+      border-bottom: 1px solid #FFD580;
+      padding: 16px 32px;
+      text-align: center;
+    }
+    .comeback-bar .inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap;
+    }
+    .comeback-bar .date-badge {
+      background: var(--verde); color: #fff;
+      font-weight: 800; font-size: 1rem;
+      padding: 6px 18px; border-radius: 8px;
+      white-space: nowrap;
+    }
+    .comeback-bar p { font-size: .9rem; color: var(--dorado-dark); font-weight: 500; }
+    .comeback-bar p strong { color: var(--verde-oscuro); }
+
+    /* LAYOUT */
+    .page { max-width: 1100px; margin: 0 auto; padding: 0 32px 80px; }
+    section { margin-top: 60px; }
+    .section-label {
+      font-size: .72rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: .12em; color: var(--verde); margin-bottom: 8px;
+    }
+    .section-title {
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem); font-weight: 800;
+      color: var(--texto); line-height: 1.2; margin-bottom: 10px; letter-spacing: -.02em;
+    }
+    .section-title span { color: var(--verde); }
+    .section-desc { font-size: .92rem; color: var(--gris-texto); max-width: 640px; margin-bottom: 32px; }
+
+    /* LÍNEA DE TIEMPO SEMANAS */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .week-block {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 0;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+    .week-label {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 20px 12px; text-align: center;
+      color: #fff; gap: 6px;
+    }
+    .week-block.sem1 .week-label { background: #C62828; }
+    .week-block.sem2 .week-label { background: #E65100; }
+    .week-block.sem3 .week-label { background: var(--verde); }
+    .week-label .wnum { font-size: 1.8rem; font-weight: 900; line-height: 1; }
+    .week-label .wdates { font-size: .72rem; opacity: .85; line-height: 1.5; }
+    .week-label .wstatus {
+      font-size: .68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .06em; background: rgba(255,255,255,.2);
+      padding: 2px 8px; border-radius: 4px; margin-top: 4px;
+    }
+    .week-body {
+      background: var(--blanco); padding: 22px 24px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .week-why {
+      font-size: .78rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .06em; color: var(--gris-texto);
+    }
+    .week-title { font-size: 1rem; font-weight: 800; }
+    .week-note { font-size: .87rem; color: var(--gris-texto); }
+
+    /* ACTIVIDADES */
+    .activities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 18px;
+    }
+    .act-card {
+      background: var(--blanco);
+      border: 1px solid var(--gris-med);
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+    }
+    .act-card .num {
+      position: absolute; top: 16px; right: 18px;
+      font-size: .72rem; font-weight: 800; color: var(--gris-med);
+      font-variant-numeric: tabular-nums;
+    }
+    .act-icon { font-size: 2rem; }
+    .act-time {
+      display: inline-block;
+      background: var(--verde-claro); color: var(--verde-oscuro);
+      font-size: .72rem; font-weight: 700;
+      padding: 2px 8px; border-radius: 5px; width: fit-content;
+    }
+    .act-title { font-size: 1rem; font-weight: 800; }
+    .act-desc { font-size: .86rem; color: var(--gris-texto); line-height: 1.6; }
+    .act-link {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: var(--verde); color: #fff;
+      font-size: .8rem; font-weight: 700;
+      padding: 7px 14px; border-radius: 7px;
+      text-decoration: none; width: fit-content; margin-top: 4px;
+    }
+    .act-link:hover { background: var(--verde-med); }
+    .act-card.bonus {
+      border-color: var(--dorado);
+      background: var(--dorado-claro);
+    }
+    .act-card.bonus .act-time {
+      background: #FFD580; color: var(--dorado-dark);
+    }
+    .act-card.social {
+      border-color: var(--verde);
+      background: var(--verde-claro);
+    }
+
+    /* RETO */
+    .reto-box {
+      background: linear-gradient(135deg, var(--verde-oscuro), var(--verde));
+      border-radius: var(--radius);
+      padding: 32px 36px;
+      color: #fff;
+    }
+    .reto-box h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 10px; }
+    .reto-box p { font-size: .92rem; color: rgba(255,255,255,.82); line-height: 1.65; margin-bottom: 14px; }
+    .reto-box .reto-label {
+      font-size: .72rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: .1em; color: var(--dorado); margin-bottom: 8px;
+    }
+    .reto-apps {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px;
+    }
+    .reto-app {
+      background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+      border-radius: 8px; padding: 8px 16px; font-size: .85rem; font-weight: 600; color: #fff;
+    }
+
+    /* CHECKLIST */
+    .checklist {
+      background: var(--gris);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+    }
+    .checklist h3 { font-size: 1rem; font-weight: 800; margin-bottom: 16px; }
+    .check-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 10px 0; border-bottom: 1px solid var(--gris-med);
+      font-size: .9rem;
+    }
+    .check-item:last-child { border-bottom: none; }
+    .check-box {
+      width: 20px; height: 20px; border-radius: 5px;
+      border: 2px solid var(--gris-med); flex-shrink: 0;
+      margin-top: 1px; background: var(--blanco);
+    }
+    .check-item .lbl { font-weight: 600; }
+    .check-item .sub { font-size: .8rem; color: var(--gris-texto); margin-top: 2px; }
+
+    /* FOOTER */
+    footer { background: var(--verde-oscuro); padding: 28px 32px; text-align: center; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .footer-inner img { height: 36px; opacity: .8; }
+    .footer-inner p { font-size: .8rem; color: rgba(255,255,255,.5); }
+    .footer-inner p strong { color: rgba(255,255,255,.8); }
+
+    @media (max-width: 640px) {
+      .page { padding: 0 16px 60px; }
+      .hero { padding: 40px 16px 36px; }
+      nav { padding: 0 16px; }
+      .week-block { grid-template-columns: 100px 1fr; }
+      .comeback-bar { padding: 14px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <span class="pill-sm">SD1004</span>
+      Estructura de Datos
+    </a>
+    <div class="nav-links">
+      <a href="index.html">← Inicio</a>
+      <a href="plan.html" class="active">Semanas autónomas</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Semanas 1 · 2 · inicio de la 3</div>
+  <h1>Sin clase, pero<br/><span>no sin aprender</span></h1>
+  <p>Sismo en semana 1, docente de viaje en semana 2. Aquí está todo lo que puedes explorar mientras tanto — sin presión, sin nota.</p>
+</div>
+
+<!-- BARRA DE REGRESO -->
+<div class="comeback-bar">
+  <div class="inner">
+    <div class="date-badge">🗓 Lun 25 Ago · Regresamos</div>
+    <p><strong>Semana 3</strong> arrancamos con Complejidad Algorítmica — Big O. La mini misión de Dart <strong>vale 1.0 punto del primer corte</strong> — comparte el link en Google Chat antes de ese día.</p>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- CONTEXTO DE LAS SEMANAS -->
+  <section>
+    <p class="section-label">¿Qué pasó?</p>
+    <h2 class="section-title">Tres semanas, <span>cero clases presenciales</span></h2>
+    <p class="section-desc">No fue planeado, pero tampoco es tiempo perdido si sabes qué hacer con él.</p>
+
+    <div class="timeline">
+
+      <div class="week-block sem1">
+        <div class="week-label">
+          <div class="wnum">1</div>
+          <div class="wdates">Lun 10 Ago<br/>Mié 12 Ago</div>
+          <div class="wstatus">🌎 Sismo</div>
+        </div>
+        <div class="week-body">
+          <div class="week-why">Causa</div>
+          <div class="week-title">Suspensión por sismo en Colombia</div>
+          <p class="week-note">Las clases del lunes y miércoles se suspendieron por medidas de seguridad institucionales tras el evento sísmico. Esta semana es autónoma.</p>
+        </div>
+      </div>
+
+      <div class="week-block sem2">
+        <div class="week-label">
+          <div class="wnum">2</div>
+          <div class="wdates">Lun 17 Ago<br/>Mié 19 Ago</div>
+          <div class="wstatus">🗓 Festivo + ✈</div>
+        </div>
+        <div class="week-body">
+          <div class="week-why">Causas</div>
+          <div class="week-title">Festivo + Docente de viaje — semana sin sesión presencial</div>
+          <p class="week-note"><strong>Lunes 17:</strong> Festivo nacional — Asunción de Nuestra Señora. &nbsp;·&nbsp; <strong>Miércoles 19:</strong> Docente de viaje (compromiso académico). No habrá clase ninguno de los dos días.</p>
+        </div>
+      </div>
+
+      <div class="week-block sem3">
+        <div class="week-label">
+          <div class="wnum">3</div>
+          <div class="wdates">Lun 25 Ago<br/>Mié 27 Ago</div>
+          <div class="wstatus">✅ Regreso</div>
+        </div>
+        <div class="week-body">
+          <div class="week-why">Acción</div>
+          <div class="week-title">Volvemos — Complejidad algorítmica · Big O</div>
+          <p class="week-note">El lunes 25 de agosto arrancamos en serio. Si exploraste VisuAlgo o viste algún video de Big O esta semana, el tema te va a quedar mucho más claro.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ACTIVIDADES -->
+  <section>
+    <p class="section-label">Lo que puedes hacer</p>
+    <h2 class="section-title">Actividades autónomas<br/><span>no se califican — sí te preparan</span></h2>
+    <p class="section-desc">Son cinco actividades cortas, cada una de 20 a 45 minutos. Sin registro, sin entrega, sin nota. El objetivo es que llegues el 25 de agosto con algo en la cabeza.</p>
+
+    <div class="activities-grid">
+
+      <div class="act-card">
+        <div class="num">01</div>
+        <div class="act-icon">🎬</div>
+        <span class="act-time">⏱ 15 min</span>
+        <div class="act-title">Mira: ¿Qué es una estructura de datos?</div>
+        <p class="act-desc">
+          Busca en YouTube: <strong>"CS50 Data Structures"</strong> (hay versión con subtítulos en español) o <strong>"Estructuras de datos en 8 minutos"</strong> de cualquier canal en español.<br/><br/>
+          Mientras ves el video, anota en papel o en el bloc de notas: <em>¿cuál estructura te llamó más la atención y por qué?</em> Esa nota te la voy a pedir el primer día de clase.
+        </p>
+        <a class="act-link" href="https://www.youtube.com/results?search_query=estructuras+de+datos+explicacion+sencilla" target="_blank">Buscar en YouTube →</a>
+      </div>
+
+      <div class="act-card">
+        <div class="num">02</div>
+        <div class="act-icon">🕹️</div>
+        <span class="act-time">⏱ 20–30 min</span>
+        <div class="act-title">Juega con VisuAlgo — Sorting</div>
+        <p class="act-desc">
+          Entra a <strong>visualgo.net/en/sorting</strong> y haz lo siguiente:<br/><br/>
+          1. Selecciona <em>Bubble Sort</em><br/>
+          2. Cambia a modo "Step" (botón arriba)<br/>
+          3. Ingresa 6 números cualquiera<br/>
+          4. Presiona el botón de play y observa cómo se ordenan paso a paso<br/><br/>
+          Luego prueba con <em>Selection Sort</em> y compara cuántos pasos tardó cada uno.
+        </p>
+        <a class="act-link" href="https://visualgo.net/en/sorting" target="_blank">Abrir VisuAlgo →</a>
+      </div>
+
+      <div class="act-card">
+        <div class="num">03</div>
+        <div class="act-icon">🗺️</div>
+        <span class="act-time">⏱ 25–40 min</span>
+        <div class="act-title">Dibuja tu mapa de estructuras en draw.io</div>
+        <p class="act-desc">
+          Entra a <strong>app.diagrams.net</strong> (sin cuenta, sin instalación) y dibuja cómo imaginas que se ven estas estructuras:<br/><br/>
+          — Un <em>arreglo</em> de 5 casillas con números<br/>
+          — Una <em>lista enlazada</em> donde cada nodo apunta al siguiente<br/>
+          — Una <em>pila</em> como torre de platos<br/><br/>
+          No tiene que ser perfecto — es tu primer intento. Guárdalo en PNG o PDF.
+        </p>
+        <a class="act-link" href="https://app.diagrams.net" target="_blank">Abrir draw.io →</a>
+      </div>
+
+      <div class="act-card">
+        <div class="num">04</div>
+        <div class="act-icon">📺</div>
+        <span class="act-time">⏱ 10 min</span>
+        <div class="act-title">Video express: Big O en 5 minutos</div>
+        <p class="act-desc">
+          El primer tema al volver es <strong>complejidad algorítmica</strong>. Un video corto antes te hace la vida mucho más fácil.<br/><br/>
+          Busca: <strong>"Big O Notation explained simply"</strong> o en español <strong>"Notación Big O fácil"</strong>. No necesitas entender todo — solo que existe y que mide "cuánto tarda un algoritmo según el tamaño del problema".
+        </p>
+        <a class="act-link" href="https://www.youtube.com/results?search_query=big+o+notation+simple+español" target="_blank">Buscar video →</a>
+      </div>
+
+      <div class="act-card bonus">
+        <div class="num">05</div>
+        <div class="act-icon">🤔</div>
+        <span class="act-time">⏱ 20 min · Bonus</span>
+        <div class="act-title">Reto mental — ¿Dónde están las estructuras?</div>
+        <p class="act-desc">
+          Escoge <strong>3 apps</strong> que usas a diario. Para cada una, escribe:<br/><br/>
+          1. ¿Qué estructura de datos crees que usan internamente?<br/>
+          2. ¿Por qué esa y no otra?<br/><br/>
+          No importa si te equivocas — nadie lo sabe todo. Lo interesante es que te pongas a pensar. El primer día lo comentamos en clase.
+        </p>
+      </div>
+
+      <div class="act-card social">
+        <div class="act-icon">💬</div>
+        <span class="act-time">Opcional — cuando quieras</span>
+        <div class="act-title">Comparte con el grupo</div>
+        <p class="act-desc">
+          Si hiciste el diagrama en draw.io o tienes respuesta al reto mental, compártelo en el canal de Google Chat del curso del curso.<br/><br/>
+          No es obligatorio y no se califica. Pero si lo compartes, lo vemos juntos cuando volvamos — y si está bien o tiene un error interesante, lo usamos de ejemplo en clase.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DART BÁSICO -->
+  <section>
+    <p class="section-label">Opcional pero muy recomendado</p>
+    <h2 class="section-title">Primeros pasos en <span>Dart</span></h2>
+    <p class="section-desc">
+      Dart es el lenguaje que vamos a usar para implementar las estructuras de datos. Es limpio, fácil de leer y el mismo que usa Flutter. Esta sección te lleva de cero a entender variables, tipos, ciclos y clases — sin instalar nada si no quieres.
+    </p>
+
+    <!-- OPCIÓN 1: SIN INSTALACIÓN -->
+    <div style="background:var(--verde-claro);border:1px solid var(--verde);border-radius:var(--radius);padding:22px 26px;margin-bottom:24px;">
+      <div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;">
+        <div style="font-size:2rem;flex-shrink:0;">🌐</div>
+        <div style="flex:1;min-width:200px;">
+          <div style="font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--verde);margin-bottom:6px;">Opción recomendada — Sin instalación</div>
+          <div style="font-size:1rem;font-weight:800;color:var(--verde-oscuro);margin-bottom:6px;">DartPad — Dart en el navegador</div>
+          <p style="font-size:.87rem;color:var(--gris-texto);margin-bottom:12px;">
+            <strong>dartpad.dev</strong> es el editor oficial de Dart que corre en el navegador. No requiere instalar nada. Escribe código, presiona Run y ves el resultado. Perfecto para empezar.
+          </p>
+          <a href="https://dartpad.dev" target="_blank" style="display:inline-block;background:var(--verde);color:#fff;font-weight:700;font-size:.85rem;padding:8px 18px;border-radius:7px;text-decoration:none;">Abrir DartPad →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPCIÓN 2: INSTALACIÓN COMPLETA -->
+    <div style="background:var(--blanco);border:1px solid var(--gris-med);border-radius:var(--radius);padding:22px 26px;margin-bottom:32px;box-shadow:var(--shadow);">
+      <div style="font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--gris-texto);margin-bottom:10px;">Opción avanzada — Instalación local (Flutter + Dart)</div>
+      <p style="font-size:.87rem;color:var(--gris-texto);margin-bottom:16px;">
+        Si quieres instalar Flutter en tu equipo (incluye Dart automáticamente). Instala una sola vez y tienes todo para el semestre:
+      </p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;">
+        <a href="https://flutter.dev/docs/get-started/install/windows" target="_blank"
+           style="background:var(--gris);border:1px solid var(--gris-med);border-radius:9px;padding:14px 16px;text-decoration:none;display:block;">
+          <div style="font-size:1.1rem;margin-bottom:4px;">🪟</div>
+          <div style="font-weight:700;font-size:.88rem;color:var(--texto);">Windows</div>
+          <div style="font-size:.78rem;color:var(--gris-texto);">Guía oficial de instalación</div>
+        </a>
+        <a href="https://flutter.dev/docs/get-started/install/macos" target="_blank"
+           style="background:var(--gris);border:1px solid var(--gris-med);border-radius:9px;padding:14px 16px;text-decoration:none;display:block;">
+          <div style="font-size:1.1rem;margin-bottom:4px;">🍎</div>
+          <div style="font-weight:700;font-size:.88rem;color:var(--texto);">macOS</div>
+          <div style="font-size:.78rem;color:var(--gris-texto);">Guía oficial de instalación</div>
+        </a>
+        <a href="https://flutter.dev/docs/get-started/install/linux" target="_blank"
+           style="background:var(--gris);border:1px solid var(--gris-med);border-radius:9px;padding:14px 16px;text-decoration:none;display:block;">
+          <div style="font-size:1.1rem;margin-bottom:4px;">🐧</div>
+          <div style="font-weight:700;font-size:.88rem;color:var(--texto);">Linux</div>
+          <div style="font-size:.78rem;color:var(--gris-texto);">Guía oficial de instalación</div>
+        </a>
+        <a href="https://dart.dev/get-dart" target="_blank"
+           style="background:var(--gris);border:1px solid var(--gris-med);border-radius:9px;padding:14px 16px;text-decoration:none;display:block;">
+          <div style="font-size:1.1rem;margin-bottom:4px;">🎯</div>
+          <div style="font-weight:700;font-size:.88rem;color:var(--texto);">Solo Dart SDK</div>
+          <div style="font-size:.78rem;color:var(--gris-texto);">Sin Flutter, más liviano</div>
+        </a>
+      </div>
+      <p style="font-size:.8rem;color:var(--gris-texto);margin-top:12px;">💡 Si tienes dudas con la instalación, tráelas el 25 de agosto — lo resolvemos en clase.</p>
+    </div>
+
+    <!-- CONCEPTOS DART -->
+    <div style="display:flex;flex-direction:column;gap:24px;">
+
+      <!-- 1. Variables y tipos -->
+      <div style="background:var(--blanco);border:1px solid var(--gris-med);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);">
+        <div style="background:var(--verde-oscuro);padding:14px 22px;display:flex;align-items:center;gap:10px;">
+          <span style="background:var(--dorado);color:var(--verde-oscuro);font-size:.72rem;font-weight:800;padding:2px 8px;border-radius:4px;">01</span>
+          <span style="color:#fff;font-weight:700;">Variables y tipos de datos</span>
+          <a href="https://dart.dev/language/variables" target="_blank"
+             style="margin-left:auto;color:rgba(255,255,255,.6);font-size:.75rem;font-weight:600;text-decoration:none;">📖 Docs oficiales →</a>
+        </div>
+        <div style="padding:20px 22px;">
+          <p style="font-size:.87rem;color:var(--gris-texto);margin-bottom:14px;">
+            En Dart puedes declarar variables con <code style="background:var(--gris);padding:1px 5px;border-radius:3px;font-size:.82rem;">var</code> (Dart infiere el tipo) o declarar el tipo explícito. Ambas formas son válidas.
+          </p>
+          <pre style="background:#0E4525;color:#A8D8BC;border-radius:9px;padding:18px 20px;font-size:.83rem;overflow-x:auto;line-height:1.7;"><span style="color:#6EE7A6;">// Tipos básicos</span>
+String nombre    = 'Juan';          <span style="color:#6EE7A6;">// texto</span>
+int edad         = 20;              <span style="color:#6EE7A6;">// entero</span>
+double promedio  = 4.2;             <span style="color:#6EE7A6;">// decimal</span>
+bool estaActivo  = true;            <span style="color:#6EE7A6;">// verdadero / falso</span>
+List&lt;int&gt; notas  = [3, 4, 5, 4, 3]; <span style="color:#6EE7A6;">// lista (arreglo)</span>
+
+<span style="color:#6EE7A6;">// Con var — Dart detecta el tipo solo</span>
+var ciudad = 'Medellín';    <span style="color:#6EE7A6;">// Dart sabe que es String</span>
+var numero = 42;            <span style="color:#6EE7A6;">// Dart sabe que es int</span>
+
+<span style="color:#6EE7A6;">// Nulos — Dart obliga a declarar si algo puede ser null</span>
+String? apodo = null;       <span style="color:#6EE7A6;">// el ? permite null</span>
+
+void main() {
+  print('Hola, $nombre! Tienes $edad años.');
+  <span style="color:#6EE7A6;">// Salida: Hola, Juan! Tienes 20 años.</span>
+}</pre>
+          <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;">
+            <a href="https://dartpad.dev/?sample=hello" target="_blank"
+               style="background:var(--verde);color:#fff;font-size:.8rem;font-weight:700;padding:6px 14px;border-radius:6px;text-decoration:none;">▶ Probar en DartPad</a>
+            <a href="https://dart.dev/language/built-in-types" target="_blank"
+               style="background:var(--gris);color:var(--texto);font-size:.8rem;font-weight:600;padding:6px 14px;border-radius:6px;text-decoration:none;">📖 Tipos en Dart</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Ciclos -->
+      <div style="background:var(--blanco);border:1px solid var(--gris-med);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);">
+        <div style="background:var(--verde-oscuro);padding:14px 22px;display:flex;align-items:center;gap:10px;">
+          <span style="background:var(--dorado);color:var(--verde-oscuro);font-size:.72rem;font-weight:800;padding:2px 8px;border-radius:4px;">02</span>
+          <span style="color:#fff;font-weight:700;">Ciclos — for, while, for-in</span>
+          <a href="https://dart.dev/language/loops" target="_blank"
+             style="margin-left:auto;color:rgba(255,255,255,.6);font-size:.75rem;font-weight:600;text-decoration:none;">📖 Docs oficiales →</a>
+        </div>
+        <div style="padding:20px 22px;">
+          <p style="font-size:.87rem;color:var(--gris-texto);margin-bottom:14px;">
+            Los ciclos son fundamentales para recorrer estructuras de datos. Aquí los tres más usados:
+          </p>
+          <pre style="background:#0E4525;color:#A8D8BC;border-radius:9px;padding:18px 20px;font-size:.83rem;overflow-x:auto;line-height:1.7;">void main() {
+  List&lt;int&gt; notas = [3, 4, 5, 4, 3];
+
+  <span style="color:#6EE7A6;">// for clásico — con índice</span>
+  for (int i = 0; i &lt; notas.length; i++) {
+    print('Nota $i: ${notas[i]}');
+  }
+
+  <span style="color:#6EE7A6;">// for-in — más limpio, recorre elemento a elemento</span>
+  for (int nota in notas) {
+    print('Nota: $nota');
+  }
+
+  <span style="color:#6EE7A6;">// while — repite mientras la condición sea verdadera</span>
+  int contador = 0;
+  while (contador &lt; 3) {
+    print('Vuelta #$contador');
+    contador++;
+  }
+
+  <span style="color:#6EE7A6;">// forEach — estilo funcional</span>
+  notas.forEach((n) =&gt; print('→ $n'));
+}</pre>
+          <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;">
+            <a href="https://dartpad.dev/" target="_blank"
+               style="background:var(--verde);color:#fff;font-size:.8rem;font-weight:700;padding:6px 14px;border-radius:6px;text-decoration:none;">▶ Probar en DartPad</a>
+            <a href="https://dart.dev/language/loops" target="_blank"
+               style="background:var(--gris);color:var(--texto);font-size:.8rem;font-weight:600;padding:6px 14px;border-radius:6px;text-decoration:none;">📖 Ciclos en Dart</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Clases -->
+      <div style="background:var(--blanco);border:1px solid var(--gris-med);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);">
+        <div style="background:var(--verde-oscuro);padding:14px 22px;display:flex;align-items:center;gap:10px;">
+          <span style="background:var(--dorado);color:var(--verde-oscuro);font-size:.72rem;font-weight:800;padding:2px 8px;border-radius:4px;">03</span>
+          <span style="color:#fff;font-weight:700;">Clases — la base de todo nodo</span>
+          <a href="https://dart.dev/language/classes" target="_blank"
+             style="margin-left:auto;color:rgba(255,255,255,.6);font-size:.75rem;font-weight:600;text-decoration:none;">📖 Docs oficiales →</a>
+        </div>
+        <div style="padding:20px 22px;">
+          <p style="font-size:.87rem;color:var(--gris-texto);margin-bottom:14px;">
+            En Estructura de Datos vas a crear tus propias clases todo el tiempo — un <code style="background:var(--gris);padding:1px 5px;border-radius:3px;font-size:.82rem;">Nodo</code>, una <code style="background:var(--gris);padding:1px 5px;border-radius:3px;font-size:.82rem;">Lista</code>, una <code style="background:var(--gris);padding:1px 5px;border-radius:3px;font-size:.82rem;">Pila</code>. Empieza con la más simple:
+          </p>
+          <pre style="background:#0E4525;color:#A8D8BC;border-radius:9px;padding:18px 20px;font-size:.83rem;overflow-x:auto;line-height:1.7;"><span style="color:#6EE7A6;">// Clase simple — un Nodo de lista enlazada</span>
+class Nodo {
+  int valor;          <span style="color:#6EE7A6;">// el dato que guarda</span>
+  Nodo? siguiente;    <span style="color:#6EE7A6;">// apuntador al siguiente (puede ser null)</span>
+
+  <span style="color:#6EE7A6;">// Constructor</span>
+  Nodo(this.valor);
+}
+
+<span style="color:#6EE7A6;">// Clase con más funcionalidad</span>
+class Estudiante {
+  String nombre;
+  int edad;
+  List&lt;double&gt; notas;
+
+  Estudiante(this.nombre, this.edad, this.notas);
+
+  <span style="color:#6EE7A6;">// Método — acción que puede hacer el objeto</span>
+  double calcularPromedio() {
+    double suma = 0;
+    for (double n in notas) suma += n;
+    return suma / notas.length;
+  }
+
+  <span style="color:#6EE7A6;">// toString — cómo se muestra el objeto con print()</span>
+  @override
+  String toString() =&gt;
+    '$nombre ($edad años) — Promedio: ${calcularPromedio().toStringAsFixed(1)}';
+}
+
+void main() {
+  var e = Estudiante('Ana', 21, [3.5, 4.0, 4.5, 3.8]);
+  print(e);
+  <span style="color:#6EE7A6;">// Salida: Ana (21 años) — Promedio: 3.9</span>
+
+  <span style="color:#6EE7A6;">// Lista de nodos</span>
+  var n1 = Nodo(10);
+  var n2 = Nodo(20);
+  n1.siguiente = n2;   <span style="color:#6EE7A6;">// n1 apunta a n2</span>
+  print('${n1.valor} → ${n1.siguiente?.valor}');
+  <span style="color:#6EE7A6;">// Salida: 10 → 20</span>
+}</pre>
+          <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;">
+            <a href="https://dartpad.dev/" target="_blank"
+               style="background:var(--verde);color:#fff;font-size:.8rem;font-weight:700;padding:6px 14px;border-radius:6px;text-decoration:none;">▶ Probar en DartPad</a>
+            <a href="https://dart.dev/language/classes" target="_blank"
+               style="background:var(--gris);color:var(--texto);font-size:.8rem;font-weight:600;padding:6px 14px;border-radius:6px;text-decoration:none;">📖 Clases en Dart</a>
+            <a href="https://dart.dev/language" target="_blank"
+               style="background:var(--gris);color:var(--texto);font-size:.8rem;font-weight:600;padding:6px 14px;border-radius:6px;text-decoration:none;">📖 Tour completo del lenguaje</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MINI MISIÓN DART -->
+    <div style="background:var(--dorado-claro);border:2px solid var(--dorado);border-radius:var(--radius);padding:24px 26px;margin-top:24px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;right:0;background:var(--verde);color:#fff;font-size:.72rem;font-weight:800;padding:5px 14px;border-radius:0 0 0 10px;letter-spacing:.06em;">
+        VALE 1.0 PUNTO — Primer corte
+      </div>
+      <div style="font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--dorado-dark);margin-bottom:8px;margin-top:8px;">🎯 Mini misión en DartPad</div>
+      <p style="font-size:.92rem;color:var(--texto);font-weight:600;margin-bottom:6px;">Abre DartPad y escribe este programa desde cero (sin copiar):</p>
+      <p style="font-size:.87rem;color:var(--gris-texto);margin-bottom:12px;">
+        Crea una clase <code style="background:rgba(0,0,0,.08);padding:1px 5px;border-radius:3px;">Producto</code> con dos atributos: <code style="background:rgba(0,0,0,.08);padding:1px 5px;border-radius:3px;">nombre</code> (String) y <code style="background:rgba(0,0,0,.08);padding:1px 5px;border-radius:3px;">precio</code> (double).
+        Crea una <code style="background:rgba(0,0,0,.08);padding:1px 5px;border-radius:3px;">List&lt;Producto&gt;</code> con 4 productos, recórrela con un <code style="background:rgba(0,0,0,.08);padding:1px 5px;border-radius:3px;">for-in</code> e imprime el nombre y precio de cada uno.
+      </p>
+      <div style="background:rgba(0,0,0,.06);border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:.84rem;color:var(--verde-oscuro);">
+        <strong>📬 Entrega:</strong> Comparte el link de tu DartPad (botón <em>"Share"</em> arriba a la derecha) en el canal de Google Chat del curso antes del <strong>Lun 25 Ago</strong>.<br/>
+        <strong>✅ Nota:</strong> Se suma directamente al primer corte (Actividad de apertura). Se califica presencia + explicación oral el día que volvamos.
+      </div>
+      <a href="https://dartpad.dev/" target="_blank"
+         style="display:inline-block;background:var(--dorado-dark);color:#fff;font-weight:700;font-size:.85rem;padding:8px 18px;border-radius:7px;text-decoration:none;">Abrir DartPad para la misión →</a>
+    </div>
+
+    <!-- RECURSOS ADICIONALES -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:20px;">
+      <a href="https://dart.dev/language" target="_blank"
+         style="background:var(--blanco);border:1px solid var(--gris-med);border-radius:10px;padding:14px 16px;text-decoration:none;display:block;box-shadow:var(--shadow);">
+        <div style="font-size:1.1rem;margin-bottom:4px;">🎯</div>
+        <div style="font-weight:700;font-size:.88rem;color:var(--texto);">Tour del lenguaje Dart</div>
+        <div style="font-size:.78rem;color:var(--gris-texto);">dart.dev/language — oficial</div>
+      </a>
+      <a href="https://dart.dev/codelabs/dart-cheatsheet" target="_blank"
+         style="background:var(--blanco);border:1px solid var(--gris-med);border-radius:10px;padding:14px 16px;text-decoration:none;display:block;box-shadow:var(--shadow);">
+        <div style="font-size:1.1rem;margin-bottom:4px;">📋</div>
+        <div style="font-weight:700;font-size:.88rem;color:var(--texto);">Dart Cheat Sheet</div>
+        <div style="font-size:.78rem;color:var(--gris-texto);">Resumen interactivo oficial</div>
+      </a>
+      <a href="https://www.youtube.com/playlist?list=PLlvRDpXh1Se5LTJZDrUF9h1_1AT4Raxjd" target="_blank"
+         style="background:var(--blanco);border:1px solid var(--gris-med);border-radius:10px;padding:14px 16px;text-decoration:none;display:block;box-shadow:var(--shadow);">
+        <div style="font-size:1.1rem;margin-bottom:4px;">▶️</div>
+        <div style="font-weight:700;font-size:.88rem;color:var(--texto);">Dart para principiantes</div>
+        <div style="font-size:.78rem;color:var(--gris-texto);">YouTube · en español</div>
+      </a>
+      <a href="https://dartpad.dev/?sample=hello" target="_blank"
+         style="background:var(--verde-claro);border:1px solid var(--verde);border-radius:10px;padding:14px 16px;text-decoration:none;display:block;box-shadow:var(--shadow);">
+        <div style="font-size:1.1rem;margin-bottom:4px;">🌐</div>
+        <div style="font-weight:700;font-size:.88rem;color:var(--verde-oscuro);">DartPad — editor online</div>
+        <div style="font-size:.78rem;color:var(--verde-med);">Sin instalación · dartpad.dev</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- EL RETO DETALLADO -->
+  <section>
+    <div class="reto-box">
+      <div class="reto-label">Reto mental · Actividad 05</div>
+      <h3>¿Qué estructura esconde tu app favorita?</h3>
+      <p>
+        Cada aplicación que usas tiene estructuras de datos trabajando por debajo. Algunos ejemplos para que te des una idea — pero no los leas antes de intentar el reto por tu cuenta:
+      </p>
+      <div class="reto-apps">
+        <div class="reto-app">🗺️ Google Maps → Grafos</div>
+        <div class="reto-app">⏪ Ctrl+Z → Pila</div>
+        <div class="reto-app">🖨️ Impresora → Cola</div>
+        <div class="reto-app">📂 Carpetas → Árbol</div>
+        <div class="reto-app">👥 Facebook amigos → Grafo</div>
+        <div class="reto-app">🎵 Playlist → Lista enlazada</div>
+        <div class="reto-app">🔍 Buscadores → Árbol B</div>
+        <div class="reto-app">📈 Ranking → Arreglo ordenado</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MINI CHECKLIST -->
+  <section>
+    <p class="section-label">Antes del 25 de agosto</p>
+    <h2 class="section-title">Tu lista de las <span>dos semanas</span></h2>
+    <p class="section-desc">No es obligatorio completar todo — es una guía de lo que sería ideal llegar teniendo.</p>
+
+    <div class="checklist">
+      <h3>✔ Lo que puedes tener listo para el Lun 25 Ago</h3>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div>
+          <div class="lbl">Vi al menos un video de estructuras de datos</div>
+          <div class="sub">Cualquier video en YouTube de 5–15 minutos es suficiente</div>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div>
+          <div class="lbl">Abrí VisuAlgo y vi una animación de sorting</div>
+          <div class="sub">visualgo.net/en/sorting — Bubble Sort o Selection Sort</div>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div>
+          <div class="lbl">Tengo cuenta en draw.io (o sé cómo acceder)</div>
+          <div class="sub">app.diagrams.net — no requiere cuenta, corre en el navegador</div>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div>
+          <div class="lbl">Sé qué es Big O Notation aunque sea de oídas</div>
+          <div class="sub">Con el video de 5 min es suficiente para llegar con contexto</div>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div>
+          <div class="lbl">Tengo al menos una respuesta para el reto mental</div>
+          <div class="sub">Una app, una estructura que crees que usa, una razón. No tiene que ser correcta.</div>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div>
+          <div class="lbl">Abrí DartPad y corrí mi primer programa</div>
+          <div class="sub">dartpad.dev — el "Hello World" básico, sin instalar nada</div>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div>
+          <div class="lbl">Entiendo variables, tipos y ciclos en Dart</div>
+          <div class="sub">String, int, double, bool, List — for, while, for-in</div>
+        </div>
+      </div>
+
+      <div class="check-item" style="background:var(--verde-claro);margin:-1px -2px;padding:10px 2px;border-radius:0 0 8px 8px;">
+        <div class="check-box" style="border-color:var(--verde);"></div>
+        <div>
+          <div class="lbl" style="color:var(--verde-oscuro);">🎯 Mini misión Dart — vale 1.0 punto del primer corte</div>
+          <div class="sub" style="color:var(--verde-med);">Clase Producto + List + for-in. Comparte el link en Google Chat antes del 25 Ago.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- VOLVEMOS -->
+  <section style="text-align:center;padding-bottom:20px;">
+    <div style="background:var(--verde-claro);border:1px solid var(--verde);border-radius:var(--radius);padding:36px 32px;max-width:600px;margin:0 auto;">
+      <div style="font-size:2rem;margin-bottom:12px;">🗓️</div>
+      <h3 style="font-size:1.3rem;font-weight:800;color:var(--verde-oscuro);margin-bottom:8px;">Nos vemos el Lunes 25 de Agosto</h3>
+      <p style="font-size:.92rem;color:var(--gris-texto);margin-bottom:20px;">
+        Traes tus notas, tu diagrama (si lo hiciste), y la respuesta al reto mental. Arrancamos con Big O y desde ahí no paramos.
+      </p>
+      <a href="index.html" style="display:inline-block;background:var(--verde);color:#fff;font-weight:700;font-size:.9rem;padding:10px 24px;border-radius:8px;text-decoration:none;">
+        ← Ver el plan del semestre completo
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <img src="https://pascualbravo.edu.co/wp-content/uploads/2026/03/Logo-I.U.Pascual-Bravo_500-X-500-px.png"
+         alt="Pascual Bravo" onerror="this.style.display='none'" />
+    <p><strong>I.U. Pascual Bravo</strong> · SD1004 Estructura de Datos · Juan Duque · Semestre 2026-II</p>
+    <p style="font-size:.74rem;margin-top:2px;">juanduque-ipb.github.io/sd1004-estructura-de-datos/plan.html</p>
+  </div>
+</footer>
+
+</body>
+</html>
