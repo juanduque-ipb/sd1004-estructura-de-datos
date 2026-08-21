@@ -366,7 +366,8 @@
     }
 
     /* ── CALENDARIO ─────────────────────────── */
-    .cal-wrap { overflow-x: auto; border-radius: var(--radius); box-shadow: var(--shadow); }
+    .cal-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--radius); box-shadow: var(--shadow); }
+    .cal-hint { display: none; font-size: .78rem; color: var(--gris-texto); margin-bottom: 10px; align-items: center; gap: 6px; }
     table { width: 100%; border-collapse: collapse; font-size: .88rem; }
     thead th {
       background: var(--verde-oscuro);
@@ -507,26 +508,42 @@
     .footer-inner p strong { color: rgba(255,255,255,.85); }
 
     /* ── RESPONSIVE ─────────────────────────── */
+    @media (max-width: 900px) {
+      .cal-hint { display: flex; }
+    }
     @media (max-width: 640px) {
       section { padding: 52px 20px; }
       .hero { padding: 52px 20px 48px; }
       header { padding: 14px 20px; }
+      .header-inner { justify-content: center; text-align: center; }
+      .header-right { text-align: center; }
       .unit-row { grid-template-columns: 60px 1fr; }
+      .unit-num-bar { font-size: 1.2rem; padding: 16px 6px; }
+      a.act-link, .hero a { min-height: 44px; }
+      .proj-wide { grid-template-columns: 1fr; text-align: center; }
+      .corte-header { flex-wrap: wrap; text-align: center; justify-content: center; }
+      table { font-size: .8rem; }
+      td, thead th { padding: 10px 12px; }
+    }
+    @media (max-width: 420px) {
+      .hero h1 { font-size: 1.9rem; }
+      .hero-chips { gap: 8px; }
+      .hero-chip { font-size: .78rem; padding: 6px 12px; }
     }
   </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav style="background:var(--verde-oscuro);border-bottom:1px solid rgba(255,255,255,.1);padding:0 32px;position:sticky;top:0;z-index:100;">
-  <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:48px;">
+<nav id="top" style="background:var(--verde-oscuro);border-bottom:1px solid rgba(255,255,255,.1);padding:0 32px;position:sticky;top:0;z-index:100;">
+  <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;min-height:48px;padding:6px 0;">
     <a href="index.html" style="text-decoration:none;color:#fff;font-weight:700;font-size:.9rem;display:flex;align-items:center;gap:8px;">
       <span style="background:var(--dorado);color:var(--verde-oscuro);font-size:.72rem;font-weight:800;padding:2px 7px;border-radius:5px;">SD1004</span>
       Estructura de Datos
     </a>
-    <div style="display:flex;gap:6px;">
-      <a href="index.html" style="text-decoration:none;color:#fff;font-size:.83rem;font-weight:600;padding:6px 14px;border-radius:6px;background:rgba(255,255,255,.15);">Inicio</a>
-      <a href="plan.html" style="text-decoration:none;color:rgba(255,255,255,.75);font-size:.83rem;font-weight:500;padding:6px 14px;border-radius:6px;">Semanas 1–3 autónomas →</a>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;">
+      <a href="index.html" style="text-decoration:none;color:#fff;font-size:.83rem;font-weight:600;padding:8px 14px;border-radius:6px;background:rgba(255,255,255,.15);">Inicio</a>
+      <a href="plan.html" style="text-decoration:none;color:rgba(255,255,255,.75);font-size:.83rem;font-weight:500;padding:8px 14px;border-radius:6px;">Semanas 1–3 →</a>
     </div>
   </div>
 </nav>
@@ -835,6 +852,7 @@
     <p class="section-label">Semana a semana</p>
     <h2 class="section-title">Calendario de <span>clases</span></h2>
     <p class="section-desc">Lunes y Miércoles · Semestre Ago – Nov 2026</p>
+    <div class="cal-hint" id="calHint">👉 Desliza hacia la derecha para ver todas las columnas</div>
     <div class="cal-wrap">
       <table>
         <thead>
@@ -884,8 +902,8 @@
                   📖 Actividades autónomas · Semanas 1, 2 y parte de la 3 (≈3 semanas)
                 </div>
                 <p style="font-size:.88rem;color:var(--gris-texto);margin-bottom:16px;max-width:800px;">
-                  Tres semanas sin clases presenciales por circunstancias externas — sismo y viaje del docente. Estas actividades <strong>no se califican</strong>, pero te ponen en contexto para que cuando volvamos el <strong>Lun 25 Ago</strong> no empecemos desde cero.
-                  Haz lo que puedas: cada una toma entre 20 y 40 minutos.
+                  Tres semanas sin clases presenciales por circunstancias externas — sismo y viaje del docente. La mayoría de estas actividades son libres, pero <strong>el diagrama en draw.io vale el 5% del primer corte</strong> — se entrega como repositorio en GitHub antes de que volvamos el <strong>Lun 25 Ago</strong>.
+                  Ver el <a href="plan.html" style="color:var(--verde-oscuro);font-weight:700;">plan detallado de las semanas autónomas →</a>
                 </p>
                 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;">
 
@@ -905,11 +923,12 @@
                     </div>
                   </div>
 
-                  <div style="background:#fff;border:1px solid var(--gris-med);border-radius:10px;padding:16px;">
-                    <div style="font-size:1.3rem;margin-bottom:8px;">🗺️</div>
-                    <div style="font-weight:700;font-size:.88rem;margin-bottom:5px;">Dibuja: Mapa de las estructuras</div>
+                  <div style="background:var(--verde-claro);border:2px solid var(--verde);border-radius:10px;padding:16px;position:relative;">
+                    <div style="position:absolute;top:0;right:0;background:var(--verde);color:#fff;font-size:.62rem;font-weight:800;padding:2px 10px;border-radius:0 10px 0 8px;">VALE 5%</div>
+                    <div style="font-size:1.3rem;margin-bottom:8px;margin-top:4px;">🗺️</div>
+                    <div style="font-weight:700;font-size:.88rem;margin-bottom:5px;">Misión: dibuja el mapa de estructuras</div>
                     <div style="font-size:.8rem;color:var(--gris-texto);">
-                      Abre <strong>draw.io</strong> (app.diagrams.net). Sin reglas: dibuja cómo imaginas que se ven las estructuras que vimos en clase. Guárdalo, lo usaremos de punto de partida.
+                      Usa <strong>draw.io</strong> o <strong>Excalidraw</strong> — sin instalación. Sube el diagrama a un repositorio en GitHub con un README explicando qué dibujaste. Comparte el link en Google Chat antes del 25 Ago. <a href="plan.html" style="color:var(--verde-oscuro);font-weight:700;">Ver guía paso a paso →</a>
                     </div>
                   </div>
 
@@ -929,11 +948,11 @@
                     </div>
                   </div>
 
-                  <div style="background:var(--verde-claro);border:1px solid var(--verde);border-radius:10px;padding:16px;">
+                  <div style="background:#fff;border:1px solid var(--gris-med);border-radius:10px;padding:16px;">
                     <div style="font-size:1.3rem;margin-bottom:8px;">💬</div>
-                    <div style="font-weight:700;font-size:.88rem;margin-bottom:5px;color:var(--verde-oscuro);">Opcional: comparte con el grupo</div>
-                    <div style="font-size:.8rem;color:var(--verde-oscuro);">
-                      Si quieres, sube tu diagrama o tu reto mental al grupo de WhatsApp o al canal del curso. No se califica — solo es para comparar ideas antes de la semana 3.
+                    <div style="font-weight:700;font-size:.88rem;margin-bottom:5px;">Entrega: link del repo en Google Chat</div>
+                    <div style="font-size:.8rem;color:var(--gris-texto);">
+                      Pega el link de tu repositorio de GitHub en el canal de Google Chat del curso. Sin ese mensaje, la misión no queda registrada.
                     </div>
                   </div>
 
@@ -1239,6 +1258,8 @@
     <p style="font-size:.74rem;margin-top:4px;">"Tradición – Transformación – Innovación" · Semestre 2026</p>
   </div>
 </footer>
+
+<a href="#top" aria-label="Volver arriba" style="position:fixed;bottom:24px;right:24px;width:46px;height:46px;background:var(--verde);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.2rem;box-shadow:var(--shadow-lg);z-index:99;">↑</a>
 
 </body>
 </html>

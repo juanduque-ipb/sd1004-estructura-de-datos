@@ -253,8 +253,18 @@
       .page { padding: 0 16px 60px; }
       .hero { padding: 40px 16px 36px; }
       nav { padding: 0 16px; }
+      .nav-inner { flex-wrap: wrap; height: auto; padding: 8px 0; gap: 8px; }
+      .nav-links a { padding: 8px 12px; }
       .week-block { grid-template-columns: 100px 1fr; }
       .comeback-bar { padding: 14px 16px; }
+      .comeback-bar .inner { flex-direction: column; gap: 8px; }
+      .act-link { padding: 10px 16px; }
+      .act-card { padding: 20px 18px; }
+    }
+    @media (max-width: 420px) {
+      .week-block { grid-template-columns: 1fr; }
+      .week-label { flex-direction: row; justify-content: flex-start; gap: 10px; padding: 14px 16px; }
+      .week-label .wnum { font-size: 1.3rem; }
     }
   </style>
 </head>
@@ -291,8 +301,16 @@
 
 <div class="page">
 
+  <!-- QUICK NAV -->
+  <div style="display:flex;gap:8px;flex-wrap:wrap;padding:20px 0 4px;">
+    <a href="#contexto" style="text-decoration:none;background:var(--gris);color:var(--texto);font-size:.8rem;font-weight:600;padding:7px 14px;border-radius:20px;">📅 Qué pasó</a>
+    <a href="#actividades" style="text-decoration:none;background:var(--gris);color:var(--texto);font-size:.8rem;font-weight:600;padding:7px 14px;border-radius:20px;">✅ Actividades</a>
+    <a href="#github-setup" style="text-decoration:none;background:var(--verde-claro);color:var(--verde-oscuro);font-size:.8rem;font-weight:700;padding:7px 14px;border-radius:20px;">🐙 Crear repo GitHub</a>
+    <a href="#checklist" style="text-decoration:none;background:var(--gris);color:var(--texto);font-size:.8rem;font-weight:600;padding:7px 14px;border-radius:20px;">📋 Checklist</a>
+  </div>
+
   <!-- CONTEXTO DE LAS SEMANAS -->
-  <section>
+  <section id="contexto">
     <p class="section-label">¿Qué pasó?</p>
     <h2 class="section-title">Tres semanas, <span>cero clases presenciales</span></h2>
     <p class="section-desc">No fue planeado, pero tampoco es tiempo perdido si sabes qué hacer con él.</p>
@@ -342,7 +360,7 @@
   </section>
 
   <!-- ACTIVIDADES -->
-  <section>
+  <section id="actividades">
     <p class="section-label">Lo que puedes hacer</p>
     <h2 class="section-title">Actividades autónomas<br/><span>una con nota — todas te preparan</span></h2>
     <p class="section-desc">Las actividades 01, 02, 04 y 05 son libres — sin entrega. La actividad 03 <strong>se califica (5% del primer corte)</strong>: un diagrama hecho en draw.io o Excalidraw subido a GitHub antes del Lun 25 Ago.</p>
@@ -378,9 +396,9 @@
       </div>
 
       <div class="act-card" style="border-color:var(--verde);background:var(--verde-claro);">
-        <div class="num" style="color:var(--verde);">03</div>
-        <div style="position:absolute;top:16px;right:18px;background:var(--verde);color:#fff;font-size:.68rem;font-weight:800;padding:2px 8px;border-radius:4px;letter-spacing:.06em;">VALE 5%</div>
-        <div class="act-icon">🗺️</div>
+        <div class="num" style="color:var(--verde);left:18px;right:auto;">03</div>
+        <div style="position:absolute;top:0;right:0;background:var(--verde);color:#fff;font-size:.68rem;font-weight:800;padding:4px 14px;border-radius:0 14px 0 10px;letter-spacing:.06em;">VALE 5%</div>
+        <div class="act-icon" style="margin-top:6px;">🗺️</div>
         <span class="act-time" style="background:var(--verde);color:#fff;">⏱ 25–40 min · Misión calificada</span>
         <div class="act-title">Dibuja tu mapa de estructuras en draw.io</div>
         <p class="act-desc">
@@ -438,7 +456,7 @@
 
 
   <!-- GITHUB SETUP -->
-  <section>
+  <section id="github-setup">
     <p class="section-label">Para la misión calificada</p>
     <h2 class="section-title">Cómo crear tu repositorio<br/><span>en GitHub — paso a paso</span></h2>
     <p class="section-desc">Si nunca has usado GitHub, no te preocupes — en 5 minutos tienes tu primer repositorio listo.</p>
@@ -502,7 +520,7 @@
   </section>
 
   <!-- MINI CHECKLIST -->
-  <section>
+  <section id="checklist">
     <p class="section-label">Antes del 25 de agosto</p>
     <h2 class="section-title">Tu lista de las <span>dos semanas</span></h2>
     <p class="section-desc">No es obligatorio completar todo — es una guía de lo que sería ideal llegar teniendo.</p>
